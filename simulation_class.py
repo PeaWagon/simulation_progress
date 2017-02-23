@@ -55,18 +55,29 @@ class DataSheet(object):
             or if file is to be updated with new information
         """ 
         with open(self.fname, 'w') as f:
-            f.write('"Simualtion Name", "Description", "Residue Range", "Salt Concentration", "Salt Type", "Progress (ns)", "Server Name", "Server Directory"\n')
+            f.write('"Simulation Name", "Description", "Residue Range", "Salt Concentration", "Salt Type", "Progress (ns)", "Server Name", "Server Directory"\n')
     
     
     def count_sim(self):
+        """ 
+            
+        """
+        # if fname does not exist, fill with header, return 0 simulations
         if os.path.isfile(self.fname) == False:
             self.write_header()
             return 0
+        # check if file is empty, fill with header
+        elif os.path.getsize(self.fname) == 0:
+            self.write_header()
+            return 0
+        # if not empty, ignore header, count the number of simulations    
         else:
             with open(self.fname, 'r') as f:
+                first = True
                 counter = 0
                 for line in f:
-                    if line.startswith("\"Simulation Name\""):
+                    if first == True:
+                        first = False
                         continue
                     else:
                         counter+=1
@@ -75,9 +86,9 @@ class DataSheet(object):
     def get_sim_names(self):
         if os.path.isfile(self.fname) == False or self.num_simulations == 0:
             print("No data has been written yet to "+self.fname+'.')
-            return 'none'
+            return []
         else:
-            print("Data will now be read from file "+fname'.')
+            print("Data will now be read from file "+fname+'.')
             simulation_names = []
             with open(self.fname, 'r') as f:
                 for line in f:
@@ -86,12 +97,18 @@ class DataSheet(object):
             return self.simulation_names
     
     def print_sim_names(self):
-        print(str(self.num_simulations)+" simulations found in "+self.fname'.')
-        print("          Simulation Name                 | Number ")
-        print("------------------------------------------|--------") 
-        for i, name in enumerate(self.simulation_names):
-            print("{}|{}".format(name, i))            
-
+        if self.num_simulations == 0:
+            print("No simulation data found in "+self.fname+'.')
+            return
+        else:
+            print(str(self.num_simulations)+" simulations found in "+self.fname+'.')
+            print("          Simulation Name                 | Number ")
+            print("------------------------------------------|--------") 
+            for i, name in enumerate(self.simulation_names):
+                # : is for padding. ^ means centre, > means right justified
+                # left justified is default
+                print("{:42}|{:^8}".format(name, i))            
+            return
 
 
 
@@ -117,9 +134,10 @@ if __name__ == "__main__":
     while True:
         print('', "Options: ", sep='\n')
         print("(1) Make a new simulation record.")
-        print("(2) Update a current simulation record in "+fname+'.')
+        print("(2) Update a current simulation record in "+sim_data.fname+'.')
         print("(3) Quit.", '', sep='\n')
         choice = input()
+        print()
         if choice == '3':
             break
         elif choice == '2':
