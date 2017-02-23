@@ -4,35 +4,13 @@
 
 import os
 
-class Simulation(object):
-
-    def __init__(self, name, progress_ns, server_name, server_directory):
-        self.name = name
-        self.progress_ns = progress_ns
-        self.server_name = server_name
-        self.server_directory = server_directory
-    
-    def update_progress_ns(self):
-        self.progress_ns = input("Enter time in ns that has been completed for simulation "+self.name+": ")
-        print("The current progress is now "+self.progress_ns+'ns.')
-        return
-        
-    def update_server_name(self):
-        self.server_name = input("Enter the server where simulation "+self.name+" currently resides: ")
-        print("The current server is now "+self.server_name+'.')
-        return
-        
-    def update_server_directory(self):
-        self.server_directory = input("Enter the new directory where the simulation data for "+self.name+" is located: ")
-        print("The directory is now "+self.server_directory+'.')
-        return
-
 class DataSheet(object):
     
     def __init__(self):
         self.fname = self.get_filename()
         self.num_simulations = self.count_sim()
         self.simulation_names = self.get_sim_names()
+        self.main_dict = self.read_datafile()
     
     def get_filename(self):
         """ the user will be prompted for a name to same simulation
@@ -96,6 +74,23 @@ class DataSheet(object):
             self.simulation_names = sorted(simulation_names)
             return self.simulation_names
     
+    def read_datafile(self):
+        """ pulls all data from the fname file and stores it
+            in a dictionary
+        """
+        if self.count_sim() == 0:
+            return {}
+        else:
+            self.main_dict = {}
+            with open(self.fname, 'r') as f:
+                for line in self.fname:
+                    self.main_dict[line[:line.index(',')]] = line
+            return self.main_dict
+                    
+                
+        
+        
+        
     def print_sim_names(self):
         if self.num_simulations == 0:
             print("No simulation data found in "+self.fname+'.')
@@ -111,8 +106,23 @@ class DataSheet(object):
             return
 
 
-
-
+    def choose_sim(self):
+        if self.num_simulations == 0:
+            return
+        while True:
+            print("Please select a simulation number. To quit, type 'q'.")
+            sim_num = input()
+            if sim_num == 'q':
+                return 'q'
+            try:
+                sim_num = int(sim_num)
+            except ValueError:
+                print("Input should be an integer (whole number). Please try again.")
+            else:
+                if sim_num not in range(self.num_simulations):
+                    print("Number not available. Please try again.")
+                else:
+                    return sim_num
 
 # instantiate class members
 
@@ -142,6 +152,9 @@ if __name__ == "__main__":
             break
         elif choice == '2':
             sim_data.print_sim_names()
+            sim_num = sim_data.choose_sim()
+            if sim_num == 'q':
+                break
         elif choice == '1':
             pass
         else:
