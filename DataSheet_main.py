@@ -33,7 +33,7 @@ class DataSheet(object):
             or if file is to be updated with new information
         """ 
         with open(self.fname, 'w') as f:
-            f.write('"Simulation Name", "Description", "Residue Range", "Salt Concentration", "Salt Type", "Progress (ns)", "Server Name", "Server Directory"\n')
+            f.write("'Simulation Name', 'WT/Mu', 'Protein Name', 'Bacteria Name', 'Residue Range', 'Salt Type', 'Salt Concentration', 'Extra Comments', 'Progress (ns)', 'Server Name', 'Source Directory'\n")
     
     
     def count_sim(self):
@@ -124,6 +124,158 @@ class DataSheet(object):
                 else:
                     return sim_num
 
+    def add_sim(self):
+        """ gets information from user about a new simulation
+            the data will be added to the file
+        """
+        print("Data will now be collected for the new simulation.")
+        print("To go back to the main menu, please type 'q'.")
+        print()
+        
+        new_sim = []
+        
+        while True:
+            print("Enter the name of the new simulation.")
+            sim_name = input()
+            if sim_name == 'q':
+                return 'q'
+            elif sim_name in self.simulation_names:
+                print("That simulation name already exists. Please enter a new one.", '', sep='\n')
+            else:
+                new_sim.append(sim_name)
+                break
+                
+        while True:
+            print("Is simulation of a wild-type (1) or mutant (2) peptide?")
+            p_type = input()
+            if p_type == 'q':
+                return 'q'
+            elif p_type != '1' and p_type != '2':
+                print("Invalid input. Please try again.")
+            elif p_type == '1':
+                p_type = 'WT'
+                new_sim.append(p_type)
+                break
+            elif p_type == '2':
+                p_type = 'Mu'
+                new_sim.append(p_type)
+                break
+
+        print("Provide the name of the protein being simulated (ex ProP):")
+        protein = input()
+        if protein == 'q':
+            return 'q'
+        else:
+            new_sim.append(protein)
+      
+        print("What bacteria name is your protein from (ex Ec, Xc)?")
+        bacteria = input()
+        if bacteria == 'q':
+            return 'q'
+        else:
+            new_sim.append(bacteria)
+        
+        while True:
+            print("For the protein being simulated, what is the first residue number?")
+            res_start = input()
+            if res_start == 'q':
+                return 'q'
+            try:
+                res_start = int(res_start)
+            except ValueError:
+                print("An integer value (whole number) should be given. Please try again.")
+            else:
+                if res_start <= 0:
+                    print("Residue number should be greater than 0. Please try again.")
+                else:
+                    break
+
+        while True:
+            print("Similarly, what is the last residue number?")
+            res_finish = input()
+            if res_finish == 'q':
+                return 'q'
+            try:
+                res_finish = int(res_finish)
+            except ValueError:
+                print("An integer value (whole number) should be given. Please try again.")                                
+            else:
+                if res_finish < res_start:
+                    print("The last residue number should be greater than the first residue number. Please try again.")
+                else:
+                    residue_range = str(res_start)+'-'+str(res_finish)
+                    new_sim.append(residue_range)
+                    break
+        
+        print("Enter the salt type used in the simulation. Use \"N/A\" if no salt was used.")
+        salt_type = input()
+        if salt_type == 'q':
+            return 'q'
+        else:
+            new_sim.append(salt_type)
+            
+        while True:
+            print("Enter the concentration of salt used. Use \"N/A\" if no salt was used.")         
+            salt_conc = input()
+            if salt_conc == 'q':
+                return 'q'
+            elif salt_conc == 'N/A':
+                break
+            try:
+                salt_conc = float(salt_conc)
+            except ValueError:
+                print("This value should be a number. Please try again.")
+            else:
+                if salt_conc <= 0:
+                    print("This value should be greater than zero. Please try again.")
+                else:
+                    new_sim.append(salt_conc)
+                    break
+        
+        while True:
+            print("Extra comments can be put about the simulation here (i.e. coiled-coil, single helix, parallel, anti-parallel, etc.).")
+            print("Note: there should NOT be any commas in this comment.")
+            comments = input()
+            if comments == 'q':
+                return 'q'
+            elif comments.count(',') > 0:
+                print("Do not put any commas in the comments section. Please try again.")
+            else:
+                new_sim.append(comments)
+                break
+            
+        while True:
+            print("Please enter the number of nanoseconds completed so far for this simulation.")
+            ns = input()
+            if ns == 'q':
+                return 'q'
+            try:
+                ns = float(ns)
+            except ValueError:
+                print("Value should be a number. Please try again.")
+            else:
+                if ns < 0:
+                    print("Value should be greater than, or equal to, zero. Please try again.")
+                else:
+                    new_sim.append(ns)
+                    break
+
+        print("Please enter the name of the server where the simulation is currently running: ")
+        server = input()
+        if server == 'q':
+            return 'q'
+        else:
+            new_sim.append(server)
+        
+        print("Please enter the directory path to where the simulation data is stored (i.e. the namd folder): ")
+        dir_path = input()
+        if dir_path == 'q':
+            return 'q'
+        else:
+            new_sim.append(dir_path)
+       
+        return new_sim
+        
 # instantiate class members
 
 """
@@ -156,7 +308,7 @@ if __name__ == "__main__":
             if sim_num == 'q':
                 break
         elif choice == '1':
-            pass
+            sim_data.add_sim()
         else:
             print("Invalid input. Try again.")
 
