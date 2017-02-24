@@ -157,7 +157,8 @@ class DataSheet(object):
                 new_sim.append(p_type)
                 break
             elif p_type == '2':
-                p_type = 'Mu'
+                mutation = input("Enter the mutation (ex E480C): ")
+                p_type = 'Mu_'+mutation
                 new_sim.append(p_type)
                 break
 
@@ -220,6 +221,7 @@ class DataSheet(object):
             if salt_conc == 'q':
                 return 'q'
             elif salt_conc == 'N/A':
+                new_sim.append(salt_conc)
                 break
             try:
                 salt_conc = float(salt_conc)
@@ -274,6 +276,12 @@ class DataSheet(object):
         else:
             new_sim.append(dir_path)
        
+        # check length of list (in case extra commas were added)
+        if len(new_sim) > 11:
+            print("Unable to process request. There was probably an extra commas somewhere in the input. Please try again.")
+        
+        print(new_sim)
+        
         return new_sim
         
 # instantiate class members
