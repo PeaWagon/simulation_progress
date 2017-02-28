@@ -132,6 +132,7 @@ class DataSheet(object):
                             add_entry = False
                         elif start == False and add_entry == True:
                             entry+=item
+                            entry+=', '
                         elif "'" in item:
                             data.append(item)
                         else:
@@ -194,35 +195,43 @@ class DataSheet(object):
         print("Getting data for simulation:", str(key), sep=' ')
         print()
         sim = self.main_dict[key]
-        print("       Category Name      |             Value            ")
-        print("--------------------------|------------------------------")
+        print("       Category Name      |             Value             ")
+        print("--------------------------|-------------------------------")
         for i, entry in enumerate(self.header_list):
-            print(" "*26, "|", " "*30, sep='')
+            print(" "*26, "|", " "*31, sep='')
+            
             # avoid issues with floats/integers
             v = str(sim[i])[:]
             
             # determine how much space the entry will take up
-            if len(v) <= 30:
+            if len(v) <= 31:
                 value = v
                 value_lines = 1
             else:    
-                value_lines = len(v) // 29 + 1
-                value = v[:29]
+                value_lines = len(v) // 30 + 1
+                value = v[:30]
                 value += '-'
-            print("{:26}|{:^30}".format(entry, value))
-            start = 29
-            end = 58
+            print("{:26}|{:^31}".format(entry, value))
+            start = 30
+            end = 60            
             if value_lines > 1:
-                for m in range(value_lines):
+                for m in range(1, value_lines):
+                    # note, here is sort of weird
+                    # python will not return index out of range error
+                    # for a string >30 with len%30 = 0
+                    # instead it prints an extra line
+                    # see note 4 from:
+                    # https://docs.python.org/3/library/stdtypes.html
                     if m == value_lines-1:
-                        print("{:26}|{:^30}".format('', v[start:]))
+                        if v[start:] != '':
+                            print("{:26}|{:^31}".format('', v[start:]))
                     else:    
-                        value = v[start][end]
+                        value = v[start:end]
                         value += '-'
-                        print("{:26}|{:^30}".format('', value))
-                        start += 29
-                        end += 29
-        print(" "*26, "|", " "*30, sep='')
+                        print("{:26}|{:^31}".format('', value))
+                        start = end
+                        end += 30
+        print(" "*26, "|", " "*31, sep='')
         return            
         
     
@@ -480,6 +489,11 @@ class DataSheet(object):
         else:
             return dir_path
         
+    def print_update_choices(self): 
+        """ user is prompted to chose an aspect to update about the simulation
+        """        
+        pass
+        
 # instantiate class members
 
 """
@@ -515,6 +529,7 @@ if __name__ == "__main__":
         elif choice == '2':
             sim_data.print_sim_names()
             sim_num = sim_data.choose_sim()
+            sim_data.print_update_choices()
         elif choice == '1':
             sim_data.add_sim()
         else:
