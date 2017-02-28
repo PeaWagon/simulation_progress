@@ -14,10 +14,18 @@ import os
 import sys
 
 class DataSheet(object):
+
+    """
+    """
     
     def __init__(self):
-        self.file_header = "'Simulation Name', 'WT/Mu', 'Protein Name', 'Bacteria Name', 'Residue Range', 'Salt Type', 'Salt Concentration', 'Extra Comments', 'Progress (ns)', 'Server Name', 'Source Directory'\n"
-        self.header_length = self.file_header.count(',') + 1        
+        """ note: length of each header item should not exceed 26 characters
+            to avoid formatting issues
+        """
+        
+        self.header = "'Simulation Name', 'WT/Mu', 'Protein Name', 'Bacteria Name', 'Residue Range', 'Salt Type', 'Salt Concentration', 'Extra Comments', 'Progress (ns)', 'Server Name', 'Source Directory'\n"
+        self.header_list = ['Simulation Name', 'WT/Mu', 'Protein Name', 'Bacteria Name', 'Residue Range', 'Salt Type', 'Salt Concentration', 'Extra Comments', 'Progress (ns)', 'Server Name', 'Source Directory']
+        self.header_length = len(self.header_list)        
         self.fname = self.get_filename()
         self.num_simulations = self.count_sim()
         self.main_dict = self.read_datafile()
@@ -109,9 +117,7 @@ class DataSheet(object):
                     start = True
                     entry = ''
                     add_entry = False
-                    print(values)
                     for item in values:
-                        print("|", item, "|", sep = '')
                         if item.startswith("'") and item.endswith("'"):
                             data.append(item[1:-1])
                         elif start == True and item.startswith("'"):
@@ -136,7 +142,6 @@ class DataSheet(object):
                     
                     sim_name = data[0]
                     self.main_dict[sim_name] = data
-                    print('length is', len(data))
             # if data entry has bad length, return error, exit program
             if len(data) != self.header_length:
                 print("Unable to read line:")
@@ -168,7 +173,7 @@ class DataSheet(object):
         if self.num_simulations == 0:
             return
         while True:
-            print("Please select a simulation number. To quit, type 'q'.")
+            print("Please select a simulation number. To return to the main menu, type 'q'.")
             sim_num = input()
             if sim_num == 'q':
                 return 'q'
@@ -182,6 +187,45 @@ class DataSheet(object):
                 else:
                     return sim_num
 
+    def print_sim(self, sim_number):
+        """ called when user requests information about a specific sim
+        """
+        key = self.simulation_names[sim_number]
+        print("Getting data for simulation:", str(key), sep=' ')
+        print()
+        sim = self.main_dict[key]
+        print("       Category Name      |             Value            ")
+        print("--------------------------|------------------------------")
+        for i, entry in enumerate(self.header_list):
+            print(" "*26, "|", " "*30, sep='')
+            # avoid issues with floats/integers
+            v = str(sim[i])[:]
+            
+            # determine how much space the entry will take up
+            if len(v) <= 30:
+                value = v
+                value_lines = 1
+            else:    
+                value_lines = len(v) // 29 + 1
+                value = v[:29]
+                value += '-'
+            print("{:26}|{:^30}".format(entry, value))
+            start = 29
+            end = 58
+            if value_lines > 1:
+                for m in range(value_lines):
+                    if m == value_lines-1:
+                        print("{:26}|{:^30}".format('', v[start:]))
+                    else:    
+                        value = v[start][end]
+                        value += '-'
+                        print("{:26}|{:^30}".format('', value))
+                        start += 29
+                        end += 29
+        print(" "*26, "|", " "*30, sep='')
+        return            
+        
+    
     def write_data(self):
         """ this function writes the contents of the main dictionary
             self.main_dict to a file, called fname
@@ -255,9 +299,9 @@ class DataSheet(object):
                 print("Invalid input. Try again.")
         
         # add to database
-        self.simulation_names.append(new_sim[0])
-        self.main_dict[new_sim[0]] = new_sim
-        self.num_simulations += 1
+        self.main_dict[new_sim[0]] = new_sim    # update dictionary
+        self.get_sim_names()                    # update names (sorted)
+        self.num_simulations += 1               # add 1 to number of sims
         
         # re-write file
         self.write_data()
@@ -463,11 +507,14 @@ if __name__ == "__main__":
         print()
         if choice == '4':
             break
+        elif choice == '3':
+            sim_data.print_sim_names()
+            sim_num = sim_data.choose_sim()
+            if sim_num != 'q':
+                sim_data.print_sim(sim_num)
         elif choice == '2':
             sim_data.print_sim_names()
             sim_num = sim_data.choose_sim()
-            if sim_num == 'q':
-                break
         elif choice == '1':
             sim_data.add_sim()
         else:
