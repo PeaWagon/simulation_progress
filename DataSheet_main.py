@@ -11,14 +11,18 @@
 
 
 import os
+import sys
 
 class DataSheet(object):
     
     def __init__(self):
+        self.file_header = "'Simulation Name', 'WT/Mu', 'Protein Name', 'Bacteria Name', 'Residue Range', 'Salt Type', 'Salt Concentration', 'Extra Comments', 'Progress (ns)', 'Server Name', 'Source Directory'\n"
+        self.header_length = self.file_header.count(',') + 1        
         self.fname = self.get_filename()
         self.num_simulations = self.count_sim()
         self.main_dict = self.read_datafile()
         self.simulation_names = self.get_sim_names()
+
     
     def get_filename(self):
         """ the user will be prompted for a name to same simulation
@@ -63,7 +67,7 @@ class DataSheet(object):
             needs to be updated AFTER the dictionary has been updated
             as it uses the dictionary to pull out simulation names
         """
-        if self.count_sim == 0:
+        if self.count_sim() == 0:
             print("No data has been written yet to "+self.fname+'.')
             return []
         else:
@@ -83,13 +87,21 @@ class DataSheet(object):
         
         header = True
         self.main_dict = {}
-        with open(self.fname, 'r') as f:
+        with open(self.fname, 'r', encoding='utf-8') as f:
             for line in f:
-                if header == True:
-                    header = False
-                else:
+              if header == True:    # ignore header
+                header = False
+              else:
+                try:                # if no commas, return error
                     sim_name = line[1:line.index(',')-1]  
                     values = line[:-1].split(', ')
+                except ValueError as e:
+                    print(e)
+                    print("There may be commas missing from the file for line:")
+                    print(line)
+                    print("Please reformat this entry to avoid data loss, then restart the program.")
+                    sys.exit()
+                else: 
                     # gross formatting crap
                     # text is indicated by ' ' 
                     # may have commas within text
@@ -97,11 +109,14 @@ class DataSheet(object):
                     start = True
                     entry = ''
                     add_entry = False
+                    print(values)
                     for item in values:
+                        print("|", item, "|", sep = '')
                         if item.startswith("'") and item.endswith("'"):
                             data.append(item[1:-1])
                         elif start == True and item.startswith("'"):
                             entry+=item
+                            entry+=', '
                             start = False
                             add_entry = True
                         elif start == False and add_entry == True and item.endswith("'"):
@@ -111,16 +126,26 @@ class DataSheet(object):
                             add_entry = False
                         elif start == False and add_entry == True:
                             entry+=item
+                        elif "'" in item:
+                            data.append(item)
                         else:
-                            data.append(float(item))
-              
+                            try:
+                                data.append(float(item))
+                            except ValueError as e:
+                                print(e)
                     
+                    sim_name = data[0]
                     self.main_dict[sim_name] = data
-            return self.main_dict
-                    
-                
-        
-        
+                    print('length is', len(data))
+            # if data entry has bad length, return error, exit program
+            if len(data) != self.header_length:
+                print("Unable to read line:")
+                print(data)
+                print('Line has', str(len(data)), 'entries, and needs', str(self.header_length), sep=' ')
+                print("Please reformat this entry to avoid data loss, then restart the program.")
+                sys.exit()
+            else:
+                return self.main_dict 
         
     def print_sim_names(self):
         if self.num_simulations == 0:
@@ -166,10 +191,11 @@ class DataSheet(object):
         """
         with open(self.fname, 'w') as f:
             # write header
-            f.write("'Simulation Name', 'WT/Mu', 'Protein Name', 'Bacteria Name', 'Residue Range', 'Salt Type', 'Salt Concentration', 'Extra Comments', 'Progress (ns)', 'Server Name', 'Source Directory'\n")
+            f.write(self.header)
             for key in sorted(self.main_dict):
                 sim = self.main_dict[key][:]    # make copy of dict item
                 sim = str(sim).strip('[""]')+'\n' # rm sq brackets, add newline
+                sim = sim.replace('\\', '') # get rid of extra slashes
                 f.write(sim)
     
     def add_sim(self):
