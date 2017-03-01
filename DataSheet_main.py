@@ -25,12 +25,34 @@ class DataSheet(object):
         
         self.header = "'Simulation Name', 'WT/Mu', 'Protein Name', 'Bacteria Name', 'Residue Range', 'Salt Type', 'Salt Concentration', 'Extra Comments', 'Progress (ns)', 'Server Name', 'Source Directory'\n"
         self.header_list = ['Simulation Name', 'WT/Mu', 'Protein Name', 'Bacteria Name', 'Residue Range', 'Salt Type', 'Salt Concentration', 'Extra Comments', 'Progress (ns)', 'Server Name', 'Source Directory']
+        self.category_functions = self.make_category_functions()
         self.header_length = len(self.header_list)        
         self.fname = self.get_filename()
         self.num_simulations = self.count_sim()
         self.main_dict = self.read_datafile()
         self.simulation_names = self.get_sim_names()
 
+    def make_category_functions(self):
+        """ all items in header_list are put into a dictionary
+            the value of each key is the function that changes the 
+            key for a given simulation 
+            example: "Simulation Name" is changed by calling the
+            function self.get_sim_name()
+            This should be changed if the user adds more categories
+        """
+        self.category_functions = {}
+        self.category_functions[self.header_list[0]] = "get_sim_name"
+        self.category_functions[self.header_list[1]] = "get_sim_type"
+        self.category_functions[self.header_list[2]] = "get_protein_name"
+        self.category_functions[self.header_list[3]] = "get_protein_bacteria"
+        self.category_functions[self.header_list[4]] = "get_res_range"
+        self.category_functions[self.header_list[5]] = "get_salt_name"
+        self.category_functions[self.header_list[6]] = "get_salt_conc"
+        self.category_functions[self.header_list[7]] = "get_comments"
+        self.category_functions[self.header_list[8]] = "get_sim_length"
+        self.category_functions[self.header_list[9]] = "get_sim_server"
+        self.category_functions[self.header_list[10]] = "get_sim_dir"
+        return self.category_functions
     
     def get_filename(self):
         """ the user will be prompted for a name to same simulation
@@ -218,7 +240,7 @@ class DataSheet(object):
                 for m in range(1, value_lines):
                     # note, here is sort of weird
                     # python will not return index out of range error
-                    # for a string >30 with len%30 = 0
+                    # for a string len>30 with len%30 = 0
                     # instead it prints an extra line
                     # see note 4 from:
                     # https://docs.python.org/3/library/stdtypes.html
@@ -232,6 +254,7 @@ class DataSheet(object):
                         start = end
                         end += 30
         print(" "*26, "|", " "*31, sep='')
+        print()
         return            
         
     
@@ -254,48 +277,25 @@ class DataSheet(object):
     def add_sim(self):
         """ gets information from user about a new simulation
             the data will be added to the file
+            recently updated to use strings to call functions
+            works much better and looks cleaner
         """
         print("Data will now be collected for the new simulation.")
         print("To go back to the main menu, please type 'q'.")
         print()
         
+        # get data for new sim
         new_sim = []
-        new_sim.append(self.get_sim_name())
-        if new_sim[0] == 'q':
-            return 'q'
-        new_sim.append(self.get_sim_type())
-        if new_sim[1] == 'q':
-            return 'q'
-        new_sim.append(self.get_protein_name())
-        if new_sim[2] == 'q':
-            return 'q'
-        new_sim.append(self.get_protein_bacteria())
-        if new_sim[3] == 'q':
-            return 'q'
-        new_sim.append(self.get_res_range())
-        if new_sim[4] == 'q':
-            return 'q'
-        new_sim.append(self.get_salt_name())
-        if new_sim[5] == 'q':
-            return 'q'
-        new_sim.append(self.get_salt_conc())
-        if new_sim[6] == 'q':
-            return 'q'
-        new_sim.append(self.get_comments())
-        if new_sim[7] == 'q':
-            return 'q'                  
-        new_sim.append(self.get_sim_length())
-        if new_sim[8] == 'q':
-            return 'q'
-        new_sim.append(self.get_sim_server())
-        if new_sim[9] == 'q':
-            return 'q'
-        new_sim.append(self.get_sim_dir())
-        if new_sim[10] == 'q':
-            return 'q'
-        
-        print('', new_sim, '', "Add this simulation to "+self.fname+"?", sep='\n')
+        for key in self.header_list:
+            function = self.category_functions[key]
+            entry = getattr(self, function)()
+            if entry == 'q':
+                return 'q'
+            else:
+                new_sim.append(entry)
+
         # confirm addition:
+        print('', new_sim, '', "Add this simulation to "+self.fname+"?", sep='\n')
         while True:
             ans = input("Y/n ") 
             if ans in ('yes', 'YES', 'Yes', 'Y', 'y'):
@@ -328,6 +328,8 @@ class DataSheet(object):
                 return 'q'
             elif sim_name in self.simulation_names:
                 print("That simulation name already exists. Please enter a new one.", '', sep='\n')
+            elif sim_name == 'DUMMY':
+                print("That simulation name is reserved by the system. Please enter a different name.")
             else:
                 return sim_name
     
@@ -489,10 +491,41 @@ class DataSheet(object):
         else:
             return dir_path
         
-    def print_update_choices(self): 
+    def get_update_choice(self): 
         """ user is prompted to chose an aspect to update about the simulation
-        """        
-        pass
+        """
+        while True:        
+            print() 
+            print("Choose a category to update, or type 'q' to quit.")
+            for i, option in enumerate(self.header_list):
+                print('(', i, ') ', option, sep='')
+            print()
+            choice = input()
+            if choice == 'q':
+                return 'q'
+            elif choice not in [ str(x) for x in range(self.header_length)]:
+                print("Option not available. Please try again.")
+            else:
+                return int(choice)
+        
+    def update_choice(self, sim_num, category):
+        """ is called after user selects choice from get_update_choice
+        """
+        print("Category", self.list_header[category], 'will now be updated.')
+
+        
+    def update_sim(self, sim_num):    
+        """ used to call other functions to make main function
+            cleaner
+        """
+        while True:
+            self.print_sim(sim_num)
+            category = self.get_update_choice()
+            if category == 'q':
+                return 'q'
+            else:
+                sim_data.update_choice(sim_num, category)
+        
         
 # instantiate class members
 
@@ -516,22 +549,34 @@ if __name__ == "__main__":
         print("(1) Make a new simulation record.")
         print("(2) Update a current simulation record in "+sim_data.fname+'.')
         print("(3) View details about a current simulation record.")
-        print("(4) Quit.", '', sep='\n')
+        print("(4) Add a category for simulations. (Not yet available).")
+        print("(5) Quit.", '', sep='\n')
         choice = input()
         print()
-        if choice == '4':
+        
+        # quit
+        if choice == '5':
             break
+        
+        # print data for chosen simulation
         elif choice == '3':
             sim_data.print_sim_names()
             sim_num = sim_data.choose_sim()
             if sim_num != 'q':
                 sim_data.print_sim(sim_num)
+        
+        # allow user to update simulation record with new data
         elif choice == '2':
             sim_data.print_sim_names()
             sim_num = sim_data.choose_sim()
-            sim_data.print_update_choices()
+            if sim_num != 'q':
+                sim_data.update_sim(sim_num)
+
+        # add new simulation to the database
         elif choice == '1':
             sim_data.add_sim()
+            
+        # invalid input (choice not available)    
         else:
             print("Invalid input. Try again.")
 
