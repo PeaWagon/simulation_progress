@@ -5,9 +5,8 @@
 
 # TO DO
 
-# make sure no fields contain '
-# this will cause issues for 
-# fun shit happens with random characters inserted. need to fix
+# make updater viable
+# enable addition of new categories
 
 
 import os
@@ -39,6 +38,8 @@ class DataSheet(object):
             example: "Simulation Name" is changed by calling the
             function self.get_sim_name()
             This should be changed if the user adds more categories
+            DO NOT change the index for get_sim_name or put another
+            category before it
         """
         self.category_functions = {}
         self.category_functions[self.header_list[0]] = "get_sim_name"
@@ -97,7 +98,7 @@ class DataSheet(object):
             needs to be updated AFTER the dictionary has been updated
             as it uses the dictionary to pull out simulation names
         """
-        if self.count_sim() == 0:
+        if self.count_sim() == 0 and self.num_simulations == 0:
             print("No data has been written yet to "+self.fname+'.')
             return []
         else:
@@ -232,7 +233,8 @@ class DataSheet(object):
             else:    
                 value_lines = len(v) // 30 + 1
                 value = v[:30]
-                value += '-'
+                if entry != 'Source Directory':
+                    value += '-'
             print("{:26}|{:^31}".format(entry, value))
             start = 30
             end = 60            
@@ -249,7 +251,8 @@ class DataSheet(object):
                             print("{:26}|{:^31}".format('', v[start:]))
                     else:    
                         value = v[start:end]
-                        value += '-'
+                        if entry != 'Source Directory':
+                            value += '-'
                         print("{:26}|{:^31}".format('', value))
                         start = end
                         end += 30
@@ -308,9 +311,9 @@ class DataSheet(object):
                 print("Invalid input. Try again.")
         
         # add to database
+        self.num_simulations += 1               # add 1 to number of sims
         self.main_dict[new_sim[0]] = new_sim    # update dictionary
         self.get_sim_names()                    # update names (sorted)
-        self.num_simulations += 1               # add 1 to number of sims
         
         # re-write file
         self.write_data()
@@ -508,12 +511,50 @@ class DataSheet(object):
             else:
                 return int(choice)
         
-    def update_choice(self, sim_num, category):
+    def update_choice(self, sim_num, cat_num):
         """ is called after user selects choice from get_update_choice
         """
-        print("Category", self.list_header[category], 'will now be updated.')
-
         
+        # hold on to impt info
+        cat_name = self.header_list[cat_num]
+        old_entry_name = self.simulation_names[sim_num]
+        old_entry = self.main_dict[old_entry_name][cat_num]
+
+        print("Category", cat_name, 'will now be updated.')
+        function = self.category_functions[cat_name]
+        entry = getattr(self, function)()
+        if entry == 'q':
+            return 'q'
+        else:
+            # confirm change
+            print("Confirm data change:", old_entry,'to', entry)
+            while True:
+                ans = input("Y/n ") 
+                if ans in ('yes', 'YES', 'Yes', 'Y', 'y'):
+                    print("Simulation will be updated.")
+                    break
+                elif ans in ('no', 'NO', 'No', 'N', 'n', 'q'):
+                    print("Simulation was not updated.")
+                    return 'q'
+                else:
+                    print("Invalid input. Try again.")
+            
+            # do entry addition
+            # changing the name might mean an order change for the sorted
+            # main_dict
+            if cat_num == 0:
+                print("Since a name change has been requested, the program will now update the file alphabetically.")
+                self.main_dict[old_entry_name][cat_num] = entry
+                self.main_dict[entry] = self.main_dict.pop(old_entry_name)
+                self.get_sim_names()
+                self.write_data()
+                return 'name_change'
+            else:
+                self.main_dict[old_entry_name][cat_num] = entry
+                self.write_data()
+                return
+                
+                
     def update_sim(self, sim_num):    
         """ used to call other functions to make main function
             cleaner
@@ -524,24 +565,10 @@ class DataSheet(object):
             if category == 'q':
                 return 'q'
             else:
-                sim_data.update_choice(sim_num, category)
+                update = sim_data.update_choice(sim_num, category)
+                if update == 'name_change':
+                    return 'name_change'
         
-        
-# instantiate class members
-
-"""
- labelling:
-        WT = wild type
-        CCD = coiled-coil dimer
-        465_500 = residue start_residue end
-        025M = concentration of salt 
-        KCl = type of salt
-        ap = anti-parallel
-
-WT_CCD_465_500_025M_KCl_ap = Simulation("WT_CCD_465_500_025M_KCl_ap", 100, 
-        
-"""
-
 if __name__ == "__main__":
     sim_data = DataSheet()
     while True:
@@ -555,7 +582,7 @@ if __name__ == "__main__":
         print()
         
         # quit
-        if choice == '5':
+        if choice in ('5', 'q'):
             break
         
         # print data for chosen simulation
