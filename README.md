@@ -3,6 +3,7 @@
 ###This repository contains two items:
 * DataSheet code
 * simulation_progress.csv file  
+
 Only the DataSheet code is required if you want to track your own simulations.
 
 #### Regarding the .csv file
@@ -21,7 +22,7 @@ Only the DataSheet code is required if you want to track your own simulations.
 * going back to the main menu/quitting is accomplished by typing 'q'
 
 #### To run the DataSheet code
-This code uses python 3.6. However, it does not import any modules other than os and sys. The following commands work on ubuntu 16.04.
+This code uses python 3.6. However, it does not import any modules other than os and sys. The following commands work on ubuntu 16.04.  
 1. Make sure you have python 3.x installed.  
 ```
 $ python3
