@@ -24,7 +24,7 @@ Only the DataSheet code is required if you want to track your own simulations.
 #### To run the DataSheet code
 This code uses python 3.6. However, it does not import any modules other than os and sys. The following commands work on ubuntu 16.04.  
 1. Make sure you have python 3.x installed.  
-  
+
     ```bash
     $ python3
     Python 3.6.0 |Anaconda 4.3.0 (64-bit)| (default, Dec 23 2016, 12:22:00)  
