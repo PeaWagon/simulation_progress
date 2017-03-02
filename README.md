@@ -26,12 +26,12 @@ This code uses python 3.6. However, it does not import any modules other than os
 1. Make sure you have python 3.x installed.  
   
     ```
-    $ python3
+    \$ python3
     Python 3.6.0 |Anaconda 4.3.0 (64-bit)| (default, Dec 23 2016, 12:22:00)  
-    \[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux  
+    [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux  
     Type "help", "copyright", "credits" or "license" for more information.  
-    >>> 
-    $ python3 --version
+    \>>> 
+    \$ python3 --version
     Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     ```  
 
