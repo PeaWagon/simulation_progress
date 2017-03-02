@@ -33,7 +33,7 @@ This code uses python 3.6. However, it does not import any modules other than os
     >>> 
     ```
 
-OR  
+    OR  
 
     ```
     $ python3 --version
