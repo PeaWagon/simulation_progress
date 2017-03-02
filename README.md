@@ -35,15 +35,15 @@ This code uses python 3.6. However, it does not import any modules other than os
     Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     ```  
 
-2. (Optional) Find out where your python executable is located.  
+2. \(Optional) Find out where your python executable is located.  
 
     ```
     $ which python
     /home/username/anaconda3/bin/python
     ```  
 
-3. (Optional) Add the executable path to the top of the DataSheet_main.py file, as shown: `#!/home/username/anaconda3/bin/python`. Make sure this is the first line in the file (no empty lines). Most exectuable files are found in the `/usr/bin/python` directory.  
-4. (Optional) Make sure the file is executable.  
+3. \(Optional) Add the executable path to the top of the DataSheet_main.py file, as shown: `#!/home/username/anaconda3/bin/python`. Make sure this is the first line in the file (no empty lines). Most exectuable files are found in the `/usr/bin/python` directory.  
+4. \(Optional) Make sure the file is executable.  
 
     ```
     $ chmod u+x DataSheet_main.py
