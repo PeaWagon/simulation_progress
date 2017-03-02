@@ -50,5 +50,5 @@ This code uses python 3.6. However, it does not import any modules other than os
     $ chmod u+x DataSheet_main.py
     ```  
 
-5. Run the code. If you followed the (Optional) markers, do: `./DataSheet_main.py`. Otherwise, do: `python3 DataSheet_main.py`.  
+5. Run the code from the directory where the DataSheet\_main.py file is located. If you followed the (Optional) markers, do: `./DataSheet_main.py`. Otherwise, do: `python3 DataSheet_main.py`.  
 6. Follow the prompts as given to make your selection/navigate the .csv file. 
