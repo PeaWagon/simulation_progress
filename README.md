@@ -24,6 +24,7 @@ Only the DataSheet code is required if you want to track your own simulations.
 #### To run the DataSheet code
 This code uses python 3.6. However, it does not import any modules other than os and sys. The following commands work on ubuntu 16.04.  
 1. Make sure you have python 3.x installed.  
+  
     ```
     $ python3
     Python 3.6.0 |Anaconda 4.3.0 (64-bit)| (default, Dec 23 2016, 12:22:00)  
@@ -31,20 +32,27 @@ This code uses python 3.6. However, it does not import any modules other than os
     Type "help", "copyright", "credits" or "license" for more information.  
     >>> 
     ```
+
 OR  
+
     ```
     $ python3 --version
     Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     ```  
+
 2. (Optional) Find out where your python executable is located.  
+
     ```
     $ which python
     /home/username/anaconda3/bin/python
     ```  
+
 3. (Optional) Add the executable path to the top of the DataSheet_main.py file, as shown: `#!/home/username/anaconda3/bin/python`. Make sure this is the first line in the file (no empty lines). Most exectuable files are found in the `/usr/bin/python` directory.  
 4. (Optional) Make sure the file is executable.  
+
     ```
     $ chmod u+x DataSheet_main.py
     ```  
+
 5. Run the code. If you followed the (Optional) markers, do: `./DataSheet_main.py`. Otherwise, do: `python3 DataSheet_main.py`.  
 6. Follow the prompts as given to make your selection/navigate the .csv file. 
