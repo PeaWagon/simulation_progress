@@ -31,11 +31,6 @@ This code uses python 3.6. However, it does not import any modules other than os
     [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux  
     Type "help", "copyright", "credits" or "license" for more information.  
     >>> 
-    ```
-
-    OR  
-
-    ```
     $ python3 --version
     Python 3.6.0 :: Anaconda 4.3.0 (64-bit)
     ```  
