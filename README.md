@@ -1,15 +1,15 @@
 # Simulation Progress Monitor :shipit:  
-###This repository contains three main items:
-* DataSheet code
-* simulation_progress.csv file
+###This repository contains three main items:  
+* DataSheet code  
+* simulation_progress.csv file  
 * file-info.pdf (in file-storage-HPC)  
 
 The DataSheet code is only required if you want to track your own simulations.
 
 #### Regarding the .pdf file
-* this pdf has bash help terminal usage commands  
+* this pdf has bash help/terminal usage commands  
 * there are also commands for using HPC resources (high-performance computing)  
-* Sharcnet and Calcul Quebec resources are discussed  
+* Sharcnet and Calcul Quebec systems are discussed  
 
 #### Regarding the .csv file
 * instances are separated by commas
