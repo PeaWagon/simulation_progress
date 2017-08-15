@@ -1,7 +1,7 @@
 Simulation Name,WT/Mu,Protein Name,Bacteria Name,Residue Range,Salt Type,Salt Concentration,Extra Comments,Progress (ns),Server Name,Source Directory
 AA1-36_sep20_0.25M,WT,ProP,Ec,465-500,KCl,0.25,"anti-parallel coiled-coil, separated 20A",50.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA1-36_sep20_0.25M/nsep20_025
 AA1-36_sep25_0.25M,WT,ProP,Ec,465-500,KCl,0.25,"anti-parallel coiled-coil, separated 25A",125.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA1-36_sep25_0.25M/namdsep025
-AA4-33_sep20_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"anti-parallel coiled-coil, separated 20A",some data corruption on server,50.0,graham (from guillimin),/home/jgarne01/project/jgarne01/AA4-33_sep20_0.25M/nsep20025
+AA4-33_sep20_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"anti-parallel coiled-coil, separated 20A,some data corruption on server",50.0,graham (from guillimin),/home/jgarne01/project/jgarne01/AA4-33_sep20_0.25M/nsep20025
 AA4-33_sep8A_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"anti-parallel coiled-coil, separated 8A",50.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA4-33_sep8A_0.25M/nsep8025
 AA4-33_sep8A_0.50M,WT,ProP,Ec,468-497,KCl,0.5,"anti-parallel coiled-coil, separated 8A",100.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA4-33_sep8A_0.50M/nsep8A05
 AA4-33_sep8A_parallel_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"parallel coiled-coil, separated 8A",25.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA4-33_sep8A_parallel_0.25M/nsep8p025
