@@ -11,9 +11,9 @@ E480C-0.25M,Mu_E480C,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,50.0,gra
 E480C-0.50M,Mu_E480C,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,50.0,graham (from guillimin),/home/jgarne01/project/jgarne01/E480C-0.50M/namdE05
 E480C-1.00M,Mu_E480C,ProP,Ec,465-500,KCl,1.0,anti-parallel coiled-coil,50.0,graham (from guillimin),/home/jgarne01/project/jgarne01/E480C-1.00M/namdE1M
 Ec_439-500_single_0.50M,WT,ProP,Ec,439-500,KCl,0.5,single helix,100.0,graham (from guillimin),/home/jgarne01/project/jgarne01/Ec_439-500_single_0.50M/n439-05
-I470A-0.25M,Mu_I470,4,7A,ProP,Ec,465-500,KCl,0.25,"anti-parallel coiled-coil, triple mutation",175.0,graham (from guillimin),/home/jgarne01/project/jgarne01/I470A-0.25M/namd025
-I470A-0.50M,Mu_I470,4,7A,ProP,Ec,465-500,KCl,0.5,"anti-parallel coiled-coil, triple mutation",175.0,graham (from guillimin),/home/jgarne01/project/jgarne01/I470A-0.50M/namd05
-I470A-1.00M,Mu_I470,4,7A,ProP,Ec,465-500,KCl,1.0,"anti-parallel coiled-coil, triple mutation",167.0,graham (from guillimin),/home/jgarne01/project/jgarne01/I470A-1.00M/namd1M
+I470A-0.25M,"Mu_I470,4,7A",ProP,Ec,465-500,KCl,0.25,"anti-parallel coiled-coil, triple mutation",175.0,graham (from guillimin),/home/jgarne01/project/jgarne01/I470A-0.25M/namd025
+I470A-0.50M,"Mu_I470,4,7A",ProP,Ec,465-500,KCl,0.5,"anti-parallel coiled-coil, triple mutation",175.0,graham (from guillimin),/home/jgarne01/project/jgarne01/I470A-0.50M/namd05
+I470A-1.00M,"Mu_I470,4,7A",ProP,Ec,465-500,KCl,1.0,"anti-parallel coiled-coil, triple mutation",167.0,graham (from guillimin),/home/jgarne01/project/jgarne01/I470A-1.00M/namd1M
 I474P-0.25M,Mu_I474P,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,125.0,graham (from briaree),/home/jgarne01/project/jgarne01/I474P-0.25M/namd025
 I474P-0.50M,Mu_I474P,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,125.0,graham (from briaree),/home/jgarne01/project/jgarne01/I474P-0.50M/namdP05
 I474P-1.00M,Mu_I474P,ProP,Ec,465-500,KCl,1.0,anti-parallel coiled-coil,125.0,graham (from briaree),/home/jgarne01/project/jgarne01/I474P-1.00M/namd1M
