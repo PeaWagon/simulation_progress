@@ -2,13 +2,6 @@
 
 # simulation class to instantiate and update simulation times
 
-
-# TO DO
-
-# make updater viable
-# enable addition of new categories
-
-
 import os
 import sys
 
@@ -21,7 +14,6 @@ class DataSheet(object):
         """ note: length of each header item should not exceed 26 characters
             to avoid formatting issues
         """
-        
         self.header = "'Simulation Name', 'WT/Mu', 'Protein Name', 'Bacteria Name', 'Residue Range', 'Salt Type', 'Salt Concentration', 'Extra Comments', 'Progress (ns)', 'Server Name', 'Source Directory'\n"
         self.header_list = ['Simulation Name', 'WT/Mu', 'Protein Name', 'Bacteria Name', 'Residue Range', 'Salt Type', 'Salt Concentration', 'Extra Comments', 'Progress (ns)', 'Server Name', 'Source Directory']
         self.category_functions = self.make_category_functions()
@@ -552,9 +544,8 @@ class DataSheet(object):
             else:
                 self.main_dict[old_entry_name][cat_num] = entry
                 self.write_data()
-                return
-                
-                
+                return         
+
     def update_sim(self, sim_num):    
         """ used to call other functions to make main function
             cleaner
@@ -568,21 +559,22 @@ class DataSheet(object):
                 update = sim_data.update_choice(sim_num, category)
                 if update == 'name_change':
                     return 'name_change'
-        
+
 if __name__ == "__main__":
+
     sim_data = DataSheet()
+
     while True:
         print('', "Options: ", sep='\n')
         print("(1) Make a new simulation record.")
         print("(2) Update a current simulation record in "+sim_data.fname+'.')
         print("(3) View details about a current simulation record.")
-        print("(4) Add a category for simulations. (Not yet available).")
-        print("(5) Quit.", '', sep='\n')
+        print("(4) Quit.", '', sep='\n')
         choice = input()
         print()
         
         # quit
-        if choice in ('5', 'q'):
+        if choice in ('4', 'q'):
             break
         
         # print data for chosen simulation
@@ -602,7 +594,7 @@ if __name__ == "__main__":
         # add new simulation to the database
         elif choice == '1':
             sim_data.add_sim()
-            
+
         # invalid input (choice not available)    
         else:
             print("Invalid input. Try again.")

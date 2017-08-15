@@ -279,17 +279,108 @@ class DataSheet(object):
             else:
                 return name
 
+    def choose_category(self):
+        """ the user is prompted to select a category
+            number, which can then be deleted
+        """
+        while True:
+            print("", "Please select a category number to remove:", sep='\n')
+            rm = input()
+            if rm == 'q':
+                return 'q'
+            elif rm == '0':
+                print("The name category cannot be deleted. Please try again.")
+            else:
+                try:
+                    rm = int(rm)
+                except ValueError:
+                    print("Category chosen should be an integer value.")
+                    continue
+                if rm not in range(1, self.header_length):
+                    print("Category not available. Please try again.")
+                else:
+                    return rm
+
+    def confirm_category(self, category, da):
+        """ the da variable indicates either "delete"
+            or "add"
+        """
+        print('', "Please note that any change to the categories will add or delete values from all the entries in the database.", '', sep='\n')
+        print("Confirm:", da, category, "?")
+        while True:
+            ans = input("Y/n ") 
+            if ans in ('yes', 'YES', 'Yes', 'Y', 'y'):
+                print("The database has been updated.")
+                return
+            elif ans in ('no', 'NO', 'No', 'N', 'n', 'q'):
+                print("The database has not been updated.")
+                return 'q'
+            else:
+                print("Invalid input. Try again.")
+    
+    def print_category(self):
+        """ prints the current categories to the terminal
+        """
+        print("", "The current categories are:", "", sep='\n')
+        print("       Category Name      |             Value             ")
+        print("--------------------------|-------------------------------")
+        for i, entry in enumerate(self.header):
+            print(" "*26, "|", " "*31, sep='')
+            print("{:26}|{:^31}".format(entry, i))
+            print(" "*26, "|", " "*31, sep='')
+        
+    def make_category(self):
+        """ the user is prompted to make a new
+            category name. it cannot be in the header
+            already
+        """
+        while True:
+            print("", "Enter a name for the new category:", sep='\n')
+            n = input()
+            if n == 'q':
+                return 'q'
+            elif n in self.header:
+                print("New name cannot already be in the category list.")
+                print("Please try again.")
+            else:
+                return n
+
     def add_category(self):
         """ adds a new category to the csv file
         """
         print("This is a placeholder for the add_category() function.")
-        pass
+        self.print_category()
+        n = self.make_category()
+        if n == 'q':
+            return 'q'
+        else:
+            a = self.confirm_category(n, 'add')
+        if a == 'q':
+            return 'q'
+        else:
+            self.header.append(n)
+            self.header_length += 1
+            for key in self.main_dict:
+                self.main_dict[key].append('')
+            self.write_data()
 
     def remove_category(self):
         """ removes a category from the csv file
         """
-        print("This is a placeholder for the remove_category() function.")
-        pass
+        self.print_category()
+        rm = self.choose_category()
+        if rm == 'q':
+            return 'q'
+        else:
+            c = self.confirm_category(self.header[rm], "delete")
+        if c == 'q':
+            return 'q'
+        else:
+            self.header.remove(self.header[rm])
+            self.header_length -= 1
+            for key in self.main_dict:
+                self.main_dict[key].remove(self.main_dict[key][rm])
+            self.write_data()
 
     def get_category(self, category):
         """ this is a general function that will allow the user
@@ -412,8 +503,8 @@ if __name__ == "__main__":
         print("(2) Remove an existing record.")
         print("(3) Update a current record in "+data.fname+'.')
         print("(4) View details about a current record.")
-        print("(5) Add a category. (Testing phase).")
-        print("(6) Remove a category. (Testing phase).")
+        print("(5) Add a category.")
+        print("(6) Remove a category.")
         print("(7) Quit.", '', sep='\n')
         choice = input()
         print()
@@ -428,6 +519,7 @@ if __name__ == "__main__":
             numi = data.choose_entry()
             if numi != 'q':
                 data.remove_entry(numi)
+
         # print data for chosen entries
         elif choice == '4':
             data.print_names()
