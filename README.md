@@ -1,4 +1,4 @@
-# Simulation Progress Monitor :shipit:  
+# :shipit: Simulation Progress Monitor 
 
 ###This repository contains three main items:  
 * DataSheet.py code  
@@ -11,9 +11,9 @@
 * Sharcnet and Calcul Quebec systems are discussed  
 
 #### Regarding the .csv file
+* formatting follows the default arguments from the csv python module
 * instances are separated by commas
-* text is contained within single quotes 
-* note: this has the implication that commas may be found between single quotes
+* text is contained within quotes if the delimiter (a comma) or quotes are present in the text
 
 #### Regarding the DataSheet code
 * this code is CLI-based 
