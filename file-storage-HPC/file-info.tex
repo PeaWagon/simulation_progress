@@ -216,7 +216,7 @@ x=\$((10+3)). Note that the double parentheses indicates an expression; setting 
 \end{lstlisting}
 Remember to refresh the file after this command has been added (\textit{source $\sim$/.profile}). Note that the name of the executable is not specified in the PATH; rather, the name of the directory containing the executable is given. 
 
-\subsection{Doing Server-Type Things}
+\subsection{Doing Server-Type Things}\label{server}
 \quad\enskip\quad Accessing the Compute Canada HPC resources requires a secure shell (ssh) connection. For example, to access the system orca from Sharcnet from the local computer, use the following:
 \begin{lstlisting}[numbers=none]
 	user@local:~$ ssh username@orca.sharcnet.ca
@@ -467,7 +467,7 @@ clear & clear terminal & puts prompt at the top of the terminal window; can stil
 reset | tput reset & clear terminal & prevents scrollback, refreshes terminal window while keeping set variables (local/environment) \\
 module & interact with modules on HPC system & examples: \textit{module list, module avail, module load <modulename>, module unload <modulename>, module show <modulename>}. \\
 rm & remove & PERMANENTLY REMOVES FILES, or remove directories (permanently) with -r. do not use unless absolutely sure you want to remove something - rm does not send files to a recycle bin!!! \\
-tar -czvf & create compressed archive & example: \textit{tar -czvf file1.txt directory-name} \\
+tar -czvf & create compressed archive & example: \textit{tar -czvf archive-name.tar.gz directory-name} \\
 tar -xzvf & extract compressed archive to current directory & example: \textit{tar -xzvf archive-name} \\
 
 \hline
@@ -475,6 +475,239 @@ tar -xzvf & extract compressed archive to current directory & example: \textit{t
 }
 \end{changemargin}
 \end{table}
+\newpage
+
+\section{Globus File Transfer}
+
+\quad As an alternative to scp (secure copy) - see Section \ref{server}, Globus can be used to transfer files between servers and personal computers. The user will first need to register for a Globus account. Use the following link to their website: \url{https://www.globusid.org/login}.
+
+\quad If you have yet to create a personal endpoint (and would like to transfer files between a home computer and a server), follow the instructions in Section \ref{globus-setup}. To transfer files between servers (or if you already have a personal endpoint), skip to Section \ref{useglobus}.
+
+\subsection{Setting up Globus Connect Personal for the first time}\label{globus-setup}
+
+\quad These instructions are only for those who wish to transfer files between their personal computers and a server. These instructions need only be followed once to setup an endpoint. 
+
+\quad First, login to Globus: \url{https://www.globusid.org/login}. While still logged in, the user should generate a Setup Key from the website: \url{https://www.globus.org/app/endpoints/create-gcp}.
+
+\begin{figure}[H]
+\centering
+\caption{To set-up a Globus endpoint on your personal computer, a name and Setup Key are required. The name should be an identifier for the computer to which the endpoint is connected.}
+\includegraphics[width=\textwidth]{globus-1}
+\label{globus-1}
+\end{figure}
+
+\quad The user should then download the Globus Connect Personal Package, either using the link shown in Figure \ref{globus-1} above, or by entering the following into a terminal:
+
+\begin{lstlisting}[numbers=none]
+user@localpc:~$ wget https://s3.amazonaws.com/connect.globusonline.org/linux/stable/globusconnectpersonal-latest.tgz
+\end{lstlisting}
+
+\quad The file should be extracted into an easily accessible directory on the local computer.
+
+\begin{lstlisting}[numbers=none]
+user@localpc:~$ tar -xzvf globusconnectpersonal-latest.tgz
+\end{lstlisting}
+
+\quad By extracting this archive, a directory should have appeared that looks similar to \textit{globusconnectpersonal-x.y.z}, where x.y.z is the version number that was downloaded. Go into that directory:
+
+\begin{lstlisting}[numbers=none]
+user@localpc:~$ cd globusconnectpersonal-x.y.z
+\end{lstlisting}
+
+\quad Then enter the setup key by running the globusconnectpersonal executable file. An example setup key is shown below. Replace this key with the one that was generated using your Globus account.
+
+\begin{lstlisting}[numbers=none]
+user@localpc:~/globusconnectpersonal-x.y.z$ ./globusconnectpersonal -setup 224532bb-8a4b-4d32-8995-e1fb442be98e
+\end{lstlisting}
+
+If everything goes smoothly, this should enable the globusconnectpersonal executable. The configuration files are saved in the home directory under /~/.globusonline/lta.
+
+\quad This concludes the instructions for setting up Globus on a home computer. To transfer files using Globus, see Section \ref{useglobus}.
+
+\subsection{Removing Globus Connect Personal}
+
+\quad To remove Globus from a home computer, first kill any processes that Globus is running:
+\begin{lstlisting}[numbers=none]
+user@localpc:~$ killall gc-ctrl.py
+\end{lstlisting}
+Then remove the installation files from your home pc. You may get an error if these files have been moved or renamed.  For example, if they were downloaded to your home directory, cd to \$HOME and type:
+\begin{lstlisting}[numbers=none]
+user@localpc:~$ rm -r globusconnectpersonal-x.y.z globusconnectpersonal-latest.tgz
+\end{lstlisting}
+The last thing to do is remove the configuration files, which are stored in a hidden folder in your home directory:
+\begin{lstlisting}[numbers=none]
+user@localpc:~$ rm -r ~/.globusonline/
+\end{lstlisting}
+
+\subsection{Using Globus to transfer files}\label{useglobus}
+
+\quad If transferring files using Globus Connect Personal (i.e. between your home pc and a server), first activate the endpoint. Go to where your Globus files are stored on your home computer, and run the globusconnect executable. Note: the tailing ampersand enables the use of the terminal while the Globus GUI is running.
+
+\begin{lstlisting}[numbers=none]
+user@localpc:~$ cd globusconnectpersonal-x.y.z
+user@localpc:~/globusconnectpersonal-x.y.z$ ./globusconnect &
+\end{lstlisting}
+
+Then select \textit{Connect}. The Globus Online status should be green with a note that says "Connected".
+
+\begin{figure}[H]
+\centering
+\caption{Before transferring files between a home computer and a server, the globus endpoint must be activated from the home computer.}
+\includegraphics[width=.46\textwidth]{globus-off} \includegraphics[width=.45\textwidth]{globus-on}
+\label{globus-status}
+\end{figure}
+
+\quad To transfer files, logon to the Globus website \url{https://www.globusid.org/login} and go to transfer files \url{https://www.globus.org/app/transfer}. 
+
+\begin{figure}[H]
+\centering
+\caption{This is the main screen for transferring files using Globus.}
+\includegraphics[width=\textwidth]{globus-transfer}
+\label{globus-trsf}
+\end{figure}
+
+\quad Then, select the white box on either the left or right side that says \textit{Endpoint}. If you want to select your home computer as an endpoint, select \textit{Administered by Me} and choose the name that was chosen when Globus was set-up.
+
+\begin{figure}[H]
+\centering
+\caption{Any endpoints that have been set-up by your account on a home computer will be listed under the "Administered by Me" tab.}
+\includegraphics[width=\textwidth]{globus-select}
+\label{globus-sel}
+\end{figure}
+
+\quad To select a server as an endpoint, enter the name of the server into the top white box shown in Figure \ref{globus-sel} that says \textit{Start typing the name of an endpoint or select one below}. Common server names are:
+
+\begin{table}[H]
+\centering
+{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+\begin{tabular}{c|c}
+Server Name & Endpoint Name \\
+\hline
+Graham (Compute Canada) & computecanada\#graham-dtn \\
+Orca (Sharcnet) & computecanada\#sharcnet-dtn1 \\
+Briaree (Calcul Qu\'{e}bec) & computecanada\#briaree \\
+Guillimin (Calcul Qu\'{e}bec) & computecanada\#guillimin
+\end{tabular}
+}
+\end{table}
+
+It should be noted that since most of the Sharcnet systems are linked under a common storage space, the endpoint would be the same for other Sharcnet systems (for example: Monk) as for Orca. When you select these endpoints, you will be required to sign in using your corresponding credentials. 
+
+\quad Another consideration is the directory from which you wish to transfer files. The default directory that is opened is the home directory (/$\sim$/); however, most jobs are stored in the project or scratch directories. You will need to enter the corresponding directory into the white box labelled \textit{Path} - see Figure \ref{globus-trsf}. For example, to access the scratch directory in Graham, enter /scratch/user (where user is replaced by the real username) into the Path box.
+
+\subsection{How to add a new path to Globus}
+
+\quad By default, Globus Connect Personal only has access to your home directory (/$\sim$/). If you have an external hard drive or USB device, these are not likely to be mounted in the home directory. Therefore, you must give Globus permission to access them. Usually, such external drives are stored in Linux machines under the /media/username directory. You can add this path (to enable access to all mountable media) or a specific path to Globus by opening the Globus Connect Personal GUI window (Figure \ref{globus-status}) and selecting File $\rightarrow$ Preferences. A new window should open called \textit{Access Path Configuration}, as shown in Figure \ref{globus-add}.
+
+\begin{figure}[H]
+\centering
+\caption{An example of an external hard drive whose path was added to the list of writable directories, as accessible from the Globus website.}
+\includegraphics[width=.8\textwidth]{globus-addusb}
+\label{globus-add}
+\end{figure}
+
+\quad Select the plus (+) button on the left, type the path to your files, and select \textbf{Save}. If you want to add files to this new path from elsewhere (i.e. from a server), make sure to make the directory writable by ticking the \textbf{Write} box beside the corresponding directory. You should now be able to access the contents of this directory from the Globus website.
+
+\section{Compute Canada - Graham}\label{CompC}
+\quad\enskip\quad This section will be devoted to the new system called Graham. It uses a scheduler called slurm \url{https://slurm.schedmd.com/}. The help email for this system is: \textit{support@computecanada.ca}. 
+
+\subsection{Logging On and Off}
+
+\quad To access Graham from a terminal, use the \textit{ssh} command and your Compute Canada credentials (note these credentials are not the same as the Sharcnet or Calcul Qu\'{e}bec login credentials). When you are finished using a system through ssh, the command is \textit{logout}. This command will return you to the local system.
+
+\begin{lstlisting}[numbers=none]
+username@localpc:~$ ssh username@graham.computecanada.ca
+username@graham.computecanada.ca's password: 
+
+Welcome to the ComputeCanada/SHARCNET cluster Graham.
+
+Please refer to the following page:
+https://docs.computecanada.ca/wiki/Graham
+
+Email support@computecanada.ca for assistance.
+
+***
+
+[username@gra-login3 ~]$ logout 
+Connection to graham.computecanada.ca closed.
+username@localpc:~$ 
+
+\end{lstlisting}
+
+\quad Provided that users have a single project on Compute Canada, it is recommended that the $\sim$/.bashrc file be altered (using \textbf{nano} or some other basic text editor). The addition (shown below) fulfills the requirement that all jobs specify the group name, without having to write in the account for every job submission.
+
+\begin{lstlisting}[numbers=none]
+export SLURM_ACCOUNT=def-someuser
+export SBATCH_ACCOUNT=$SLURM_ACCOUNT
+export SALLOC_ACCOUNT=$SLURM_ACCOUNT 
+\end{lstlisting}
+
+Where someuser should be replaced by the group name. The group name can be found by logging onto the Compute Canada website and listing the project details. Alternatively, you can determine the group name by using the \textit{groups} command while logged on to Graham.
+
+
+
+\subsection{Submitting Basic Jobs}
+\quad\enskip\quad To submit a job to Graham, the command \textit{sbatch} is used. More information can be found on the Compute Canada help wiki: \url{https://docs.computecanada.ca/wiki/Running_jobs}.
+
+\quad Some basic arguments for the sbatch command include:
+\begin{lstlisting}[numbers=none, basicstyle=\normalsize]
+-t # time to complete the job
+-J # job name
+--mem=4G # (for example) for requesting memory (G=gigabytes, M=megabytes, K=kilobytes, etc., where the default unit is megabytes) 
+-N # number of nodes
+-n # number of tasks (which can be thought of as number of CPUs) 
+--gres=gpu:2 # (for example) for generic resource, such as GPU
+-o # output file name
+-e # error output file name (by default the error file is included in the output file)
+\end{lstlisting}
+ A full list of arguments can be found here: \url{https://slurm.schedmd.com/sbatch.html}. Note that most arguments have an explicit form (example $--$time=00:60:00) or a short form (example $-$t 00:60:00). 
+ 
+\quad For example, to submit a script called my-script.py to run on Graham for 20 minutes and writing to a file called output.txt, the command would be: 
+\begin{lstlisting}[numbers=none, basicstyle=\normalsize]
+sbatch -t 00:20:00 -o output.txt ./my-script.py
+\end{lstlisting}
+
+\quad If the user has not specified the job name as an environment variable in the $\sim$/.bashrc, it will be necessary to add the account argument with every submission.
+
+\begin{lstlisting}[numbers=none, basicstyle=\normalsize]
+sbatch -t 00:20:00 -o output.txt --account=def-someuser ./my-script.py
+\end{lstlisting}
+
+\quad As with other servers, some jobs may require loading modules prior to submission. The same commands can be used on Graham as with other servers (i.e. \textit{module (un)load}, \textit{module list}, and \textit{module avail} all work). For example, the default version of python on Graham is python2.7. To load another version of python, use:
+
+\begin{lstlisting}[numbers=none]
+[username@gra-login3 ~]$ module load python/3.5.2
+[username@gra-login3 ~]$ module list
+
+Currently Loaded Modules:
+  1) nixpkgs/16.09 (S)   4) ifort/.2016.4.258 (H)  7) openmpi/2.1.1 (m)
+  2) icc/.2016.4.258 (H) 5) intel/2016.4    (t)    8) StdEnv/2016.4 (S)
+  3) gcccore/.5.4.0  (H) 6) imkl/11.3.4.258 (math) 9) python/3.5.2  (t)
+
+\end{lstlisting}
+
+\subsection{Checking Job Status}
+
+\quad To see what jobs are currently running, use the \textit{squeue} command. You can also add the argument \textit{-u \$USER} to only see jobs for a given user. For example:
+
+\begin{lstlisting}[numbers=none, basicstyle=\tiny]
+[username@gra-login2 ~]$ squeue -u $USER
+   JOBID  USER  ACCOUNT  NAME  ST START_TIME TIME_LEFT NODES CPUS   GRES MIN_MEM NODELIST (REASON) 
+  433759 user  group    job1a  PD N/A          2:00:00  1      32  gpu:2  2G           (Priority) 
+  433765 user  group    job1b  PD N/A          2:00:00  1      32  gpu:2  2G         (Dependency) 
+  433766 user  group    jobA   PD N/A          0:30:00  1      32  gpu:1  1G          (Resources) 
+\end{lstlisting} 
+
+\quad Here we have three jobs listed in the queue. The "REASON" column explains the state (ST) of the job (where PD is pending, R is running). Priority means that other users have higher priority than your group and are in line next to use resources. Dependency means that another job has to start somehow before its dependent job can run (i.e. job1a must finish before job1b can run). Resources means that the scheduler is waiting on resources in use before the job can start. 
+
+\subsection{Cancelling a Job}
+
+\quad Use \textit{scancel jobid} to cancel a job, where jobid should be replaced by the number for the job you want to cancel. Similarly, to cancel all jobs for a user, use \textit{scancel -u \$USER}. To cancel all pending jobs, use \textit{scancel -u \$USER -t PENDING}. For more information on the scancel command, follow this link \url{https://slurm.schedmd.com/scancel.html}.
+
+\subsection{Submitting a job using a script}
+
+\quad When a user has a job that is more complicated, usually they will write a script to submit that job. A script can be generated in a basic text editor on Graham. Scripts can also be written on the local system and subsequently uploaded to Graham. For information on how to transfer files between th
+
 \newpage
 
 \section{Calcul Qu\'{e}bec Systems}\label{CalcQ}
