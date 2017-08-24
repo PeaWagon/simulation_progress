@@ -477,7 +477,7 @@ tar -xzvf & extract compressed archive to current directory & example: \textit{t
 \end{table}
 \newpage
 
-\section{Globus File Transfer}
+\section{Globus File Transfer}\label{globus-main}
 
 \quad As an alternative to scp (secure copy) - see Section \ref{server}, Globus can be used to transfer files between servers and personal computers. The user will first need to register for a Globus account. Use the following link to their website: \url{https://www.globusid.org/login}.
 
@@ -706,7 +706,26 @@ Currently Loaded Modules:
 
 \subsection{Submitting a job using a script}
 
-\quad When a user has a job that is more complicated, usually they will write a script to submit that job. A script can be generated in a basic text editor on Graham. Scripts can also be written on the local system and subsequently uploaded to Graham. For information on how to transfer files between th
+\quad When a user has a job that is more complicated, usually they will write a script to submit that job. A script can be generated in a basic text editor on Graham. Scripts can also be written on the local system and subsequently uploaded to Graham. For information on how to transfer files between servers and personal computers, see either Section \ref{server} or Section \ref{globus-main}. 
+
+\quad An example of a submission script can be seen below. To submit this script to Graham, use the command: \textit{sbatch script}, where script should be replaced with the actual script file name.
+
+\begin{lstlisting}
+#!/bin/bash
+#SBATCH --mem 2G
+#SBATCH -n 32
+#SBATCH -N 1
+#SBATCH --gres=gpu:2
+#SBATCH -t 05:00:00
+#SBATCH -J production
+#SBATCH -e error_%x_%j
+#SBATCH -o step7.1_production.log
+module load cuda/8.0.44
+module load namd-multicore/2.12
+namd2 +p32 +idlepoll step7.1_production.inp
+\end{lstlisting}
+
+\quad The first line is indicating that the commands are in bash. The lines containing \#SBATCH (lines 2-9) must preceed any other commands to be run by the server. These lines allocate resources. The minimum resources that must be specified are the time limit ($-$t or $--$t=) and the group name ($--$account=def-someuser). All other allocations are optional.
 
 \newpage
 
