@@ -1,5 +1,5 @@
 Name,Currently running (y/n),Server Name,Source Directory,Simulation Details,Membrane composition,Simulation length (ns)
 AAA,y,graham,/home/jgarne01/scratch/ProPEc_439-500_AAA/namd,"NPT ensemble, two ProP Ec peptides (439-500), triple alanine mutation at positions 470, 474, and 477 (originally isoleucine), 0.25M KCl",80% PYPE 20% PYPG,38
-EQ,y,graham,/home/jgarne01/scratch/ProPEc_439-500_E461Q_E465Q/namd,"NPT ensemble, two ProP Ec peptides (439-500), mutations E461Q and E465Q designed to prevent salt-bridges and encourage membrane interactions, 0.25M KCl",80% PYPE 20% PYPG,17
+EQ,y,monk,/work/jgarne01/new-membrane-sims/ProPEc_439-500_E461Q_E465Q/namd,"NPT ensemble, two ProP Ec peptides (439-500), mutations E461Q and E465Q designed to prevent salt-bridges and encourage membrane interactions, 0.25M KCl",80% PYPE 20% PYPG,17
 NPT,y,graham,/home/jgarne01/scratch/NPT_two-prop-ec-membrane/namd,"NPT ensemble, two ProP peptides (residues 439-500), 0.25M KCl",80% PYPE 20% PYPG,69
-NPgT,y,graham,/home/jgarne01/scratch/NPgT-0dyncm-two-prop-ec-membrane/namd,"NPgT ensemble (constant surface tension of 0dyn/cm), two ProP Ec peptides (residues 439-500), 0.25M KCl",80% PYPE 20% PYPG,54
+NPgT,y,monk,/work/jgarne01/new-membrane-sims/NPgT-0dyncm-two-prop-ec-membrane/namd,"NPgT ensemble (constant surface tension of 0dyn/cm), two ProP Ec peptides (residues 439-500), 0.25M KCl",80% PYPE 20% PYPG,54
