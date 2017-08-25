@@ -692,7 +692,13 @@ export SALLOC_ACCOUNT=$SLURM_ACCOUNT
 
 Where someuser should be replaced by the group name. The group name can be found by logging onto the Compute Canada website and listing the project details. Alternatively, you can determine the group name by using the \textit{groups} command while logged on to Graham.
 
+\subsection{Storage Space and Directory Structure}
 
+\quad Graham has three main storage spaces for use: the scratch space, the home space, and the project space. The default allocations for these spaces are: 20TB per user, 50GB per user, and 1TB per group, respectively. These can be increased to maximums of 100TB per user for scratch and 10TB per group for project by request. There are also limits on the number of files that a user can have: 500,000 per user (home), 1,000,000 per user (scratch), and 5,000,000 per group (project). More information on these spaces is here: \url{https://www.computecanada.ca/research-portal/accessing-resources/rapid-access-service/}.
+
+\quad When a user first logs in to Graham, they are located in the home directory (\$HOME, /$\sim$/, /home/username). From the home directory, the user can access scratch (/scratch/username OR /home/username/scratch) and project (/home/username/project/username). If a user is part of multiple projects, they can be accessed using the projects directory from the home directory (/home/username/projects/def-groupname/username). 
+
+\quad It is usually convention to run jobs from the scratch directory, to save data being analysed in the project directory, and to keep small and important scripts and datafiles in the home directory. Files cannot be stored long-term in the scratch directory, because latent files will be removed after a certain time period. Jobs may receive performance boosts when they are run from the scratch directory (usually because the read/write capabilities are faster than other storage spaces). The home space is usually backed-up, whereas the other spaces are not. For groups that require more storage space, they can enter the Resource Allocation Competition (RAC). 
 
 \subsection{Submitting Basic Jobs}
 \quad\enskip\quad To submit a job to Graham, the command \textit{sbatch} is used. More information can be found on the Compute Canada help wiki: \url{https://docs.computecanada.ca/wiki/Running_jobs}.
