@@ -775,29 +775,38 @@ namd2 +p32 +idlepoll step7.1_production.inp
 
 \quad The first line is indicating that the commands are in bash. The lines containing \#SBATCH (lines 2-9) must preceed any other commands to be run by the server. These lines allocate resources. The minimum resources that must be specified are the time limit ($-$t or $--$t=) and the group name ($--$account=def-someuser). All other allocations are optional. Line 8, which specifies the error file, uses the percent sign to indicate job name and job id (\%x and \%j respectively). The actual error file would be similiar to: error\_production\_1203403.
 
-\subsection{NAMD Jobs on Graham}
+\subsection{Benchmarking and Running NAMD Jobs on Graham}
 
 \quad NAMD is used for Molecular Dynamics (MD) jobs. Trajectory (dcd) files are generated. Combining these trajectory files with protein structure (psf) and protein database (pdb) structure files in VMD will generate a simulation that can be viewed and analysed. The Compute Canada webpage for NAMD is here: \url{https://docs.computecanada.ca/wiki/NAMD}. 
 
-\quad NAMD can be run using a combination of CPUs and GPUs on the Graham system. To use GPUs, modules must be compiled with CUDA support. The CUDA module must also be loaded:
+\quad NAMD can be run using a combination of CPUs and GPUs on the Graham system. To use GPUs, modules must be compiled with CUDA support. The CUDA module must also be loaded. In utilising GPUs and one node, load the following modules:
 
 \begin{lstlisting}[numbers=none]
 module load cuda/8.0.44
+module load namd-multicore/2.12
 \end{lstlisting}
 
-\quad When running a NAMD simulation, you can request multiple nodes to complete the job. To use multiple nodes, this requires a 
+\quad In the executable line for a NAMD simulation, make sure to specify the number of CPU cores being utilised (+p32 for 32 CPU cores designation):
+
+\begin{lstlisting}[numbers=none]
+namd2 +p32 +idlepoll step7.1_production.inp
+\end{lstlisting}
+
+\quad The actual name of the executable is namd2, and the file containing the instructions is called step7.1\_production.inp. If you only want to run a simulation using CPUs (no GPUs), do not load the CUDA module. If you do not specify a number of GPU resources and try to load the CUDA module, the program will crash. 
+
+\quad When running a NAMD simulation, you can request multiple nodes to complete the job. To use multiple nodes, this requires a different module than the standard NAMD multicore version. For Graham, the verbs module is more effient than the MPI (message passing interface) module. However, the scripts for these are non-trivial, and so the user should consult the Compute Canada NAMD wiki page for instructions on how to use NAMD on multiple nodes.
 
 \quad When running a NAMD job for the first time, it is a good idea to run some benchmarking tests. NAMD jobs perform better if they use full nodes. On Graham, a full node has 32 CPUs ("tasks"). NAMD jobs also fail more often if using multiple nodes (from personal experience). So there is a trade-off between stability in using fewer nodes and shorter time-to-completion in using more nodes. Adding a GPU usually helps to shorten the time-to-completion of a job.
 
 \quad To run a benchmark, submit multiple instances of the same job to Graham, each with a short time limit (about 5 minutes). Each test should use a different quantity of resources. The jobs will not complete,  but the program output should provide some information as to an estimate of resources required. Benchmarking is also a good way to make sure the NAMD job is using the number of CPUs that were requested.
 
-\quad After the jobs have finished their allocated time, use \textit{grep} to search for the keyword \textbf{Benchmark}.
+\quad After the jobs have finished their allocated time, use \textit{grep} to search for the keyword \textbf{Benchmark}. Remember to specify the name (and path, if applicable) of the text file to search. The \textit{grep} command is, by default, case sensitive. Use the argument \textbf{-i} to make a search case insensitive. Examples are below.
 
 
 \quad The age of the computing resource is also important for time-to-completion. For example, running 1ns of a membrane simulation on the old system Saw would take more than 10 hours with 64CPUs, whereas running the same simulation on Graham would take less than 2 hours with 32CPUs and 2GPUs: 
 
 \begin{lstlisting}[numbers=none, basicstyle=\scriptsize]
-[user@gra-login4 namd]$ grep -i 'benchmark' step7.1_production.log 
+[user@gra-login4 namd]$ grep 'Benchmark' step7.1_production.log 
 Info: Benchmark time: 64 CPUs 0.0801173 s/step 0.463642 days/ns 917.887 MB memory
 Info: Benchmark time: 64 CPUs 0.0803184 s/step 0.464806 days/ns 925.812 MB memory
 Info: Benchmark time: 64 CPUs 0.0804023 s/step 0.465291 days/ns 925.812 MB memory
@@ -812,6 +821,36 @@ Info: Benchmark time: 32 CPUs 0.0110386 s/step 0.0638808 days/ns 1127.25 MB memo
 Info: Benchmark time: 32 CPUs 0.0110486 s/step 0.0639384 days/ns 1127.71 MB memory
 Info: Benchmark time: 32 CPUs 0.0110241 s/step 0.063797 days/ns 1128.59 MB memory
 
+\end{lstlisting} 
+
+\quad The output of the benchmarking search should show how long it takes to complete 1ns of simulation. The days/ns figure can be multiplied by 24hours/day to get an estimate in hours (which is usually more useful). The last column is the amount of RAM needed (specified in the script by $--$mem) in MB. Recall: there are approximately 1024MB in one GB. 
+
+\quad Note that some steps (i.e. equilibration steps) are smaller than 1ns long, and so you should consult the input files (inp) for the actual running time. Use \textit{grep} to search for "steps =" and "run" in the input file. The 'run' value is how many steps are run, and the comments should indicate the timescale for each step. In the example below, this equilibration file would run 25,000 steps, where 500 steps = 1ps, meaning that the equilibration step is 50ps long (0.05ns).
+\begin{lstlisting}[numbers=none]
+[user@gra-login2 namd]$ grep 'steps =' step6.1_equilibration.inp 
+restartfreq        500;                # 500 steps = every 1ps
+outputEnergies     125;                # 125 steps = every 0.25ps
+[user@gra-login2 namd]$ grep 'run' step6.1_equilibration.inp 
+outputName         step6.1_equilibration; # base name for output from this run
+firsttimestep        0;                # last step of previous run
+run 25000
+\end{lstlisting}
+
+
+\quad To ensure a job has completed successfully (that is, after the benchmarking has been done), check the end of the log file using the \textit{tail} command. On Graham, it should appear similar to this:
+
+\begin{lstlisting}[numbers=none]
+[user@gra-login2 namd]$ tail step7.77_production.log 
+FINISHED WRITING RESTART VELOCITIES
+WRITING EXTENDED SYSTEM TO OUTPUT FILE AT STEP 500000
+CLOSING EXTENDED SYSTEM TRAJECTORY FILE
+WRITING COORDINATES TO OUTPUT FILE AT STEP 500000
+CLOSING COORDINATE DCD FILE step7.77_production.dcd
+WRITING VELOCITIES TO OUTPUT FILE AT STEP 500000
+====================================================
+
+WallClock: 5575.174316  CPUTime: 5560.857422  Memory: 1184.992188 MB
+[Partition 0][Node 0] End of program
 \end{lstlisting} 
 
 \newpage

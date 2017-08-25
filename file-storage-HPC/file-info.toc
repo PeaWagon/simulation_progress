@@ -24,19 +24,19 @@
 \contentsline {subsection}{\numberline {4.3}Checking Job Status}{29}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}Cancelling a Job}{29}{subsection.4.4}
 \contentsline {subsection}{\numberline {4.5}Submitting a job using a script}{30}{subsection.4.5}
-\contentsline {subsection}{\numberline {4.6}NAMD Jobs on Graham}{30}{subsection.4.6}
-\contentsline {section}{\numberline {5}Calcul Qu\'{e}bec Systems}{32}{section.5}
-\contentsline {subsection}{\numberline {5.1}Briar\'{e}e}{32}{subsection.5.1}
-\contentsline {subsubsection}{\numberline {5.1.1}Briar\'{e}e Resources}{32}{subsubsection.5.1.1}
-\contentsline {subsubsection}{\numberline {5.1.2}MWE for Briar\'{e}e Submission Script}{32}{subsubsection.5.1.2}
-\contentsline {subsection}{\numberline {5.2}Guillimin}{33}{subsection.5.2}
-\contentsline {subsubsection}{\numberline {5.2.1}Guillimin Resources}{33}{subsubsection.5.2.1}
-\contentsline {subsubsection}{\numberline {5.2.2}MWE for Guillimin Submission Script}{34}{subsubsection.5.2.2}
-\contentsline {section}{\numberline {6}Sharcnet Systems}{35}{section.6}
-\contentsline {subsection}{\numberline {6.1}Sharcnet File Storage}{35}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Monk Resources}{36}{subsection.6.2}
-\contentsline {subsection}{\numberline {6.3}Orca Resources}{36}{subsection.6.3}
-\contentsline {subsection}{\numberline {6.4}Sharcnet Visualisation Systems}{36}{subsection.6.4}
-\contentsline {subsubsection}{\numberline {6.4.1}Accessing vdi-centos6}{36}{subsubsection.6.4.1}
-\contentsline {subsubsection}{\numberline {6.4.2}Graphical VMD via vdi-centos6}{38}{subsubsection.6.4.2}
-\contentsline {section}{\numberline {7}Abbreviations}{40}{section.7}
+\contentsline {subsection}{\numberline {4.6}Benchmarking and Running NAMD Jobs on Graham}{30}{subsection.4.6}
+\contentsline {section}{\numberline {5}Calcul Qu\'{e}bec Systems}{33}{section.5}
+\contentsline {subsection}{\numberline {5.1}Briar\'{e}e}{33}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Briar\'{e}e Resources}{33}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}MWE for Briar\'{e}e Submission Script}{33}{subsubsection.5.1.2}
+\contentsline {subsection}{\numberline {5.2}Guillimin}{34}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Guillimin Resources}{34}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}MWE for Guillimin Submission Script}{35}{subsubsection.5.2.2}
+\contentsline {section}{\numberline {6}Sharcnet Systems}{36}{section.6}
+\contentsline {subsection}{\numberline {6.1}Sharcnet File Storage}{36}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Monk Resources}{37}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Orca Resources}{37}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Sharcnet Visualisation Systems}{37}{subsection.6.4}
+\contentsline {subsubsection}{\numberline {6.4.1}Accessing vdi-centos6}{37}{subsubsection.6.4.1}
+\contentsline {subsubsection}{\numberline {6.4.2}Graphical VMD via vdi-centos6}{39}{subsubsection.6.4.2}
+\contentsline {section}{\numberline {7}Abbreviations}{41}{section.7}
