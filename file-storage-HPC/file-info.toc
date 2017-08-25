@@ -4,38 +4,39 @@
 \contentsline {subsection}{\numberline {1.3}Aliases}{6}{subsection.1.3}
 \contentsline {subsection}{\numberline {1.4}Environment Variables}{7}{subsection.1.4}
 \contentsline {subsection}{\numberline {1.5}Adding Executables to PATH}{8}{subsection.1.5}
-\contentsline {subsection}{\numberline {1.6}Doing Server-Type Things}{9}{subsection.1.6}
-\contentsline {subsection}{\numberline {1.7}Using the Nano Text Editor}{11}{subsection.1.7}
-\contentsline {subsection}{\numberline {1.8}Other File Manipulation Options}{14}{subsection.1.8}
-\contentsline {subsection}{\numberline {1.9}Compressed Files}{16}{subsection.1.9}
-\contentsline {section}{\numberline {2}Summary Table of Bash Commands}{17}{section.2}
-\contentsline {section}{\numberline {3}Globus File Transfer}{19}{section.3}
-\contentsline {subsection}{\numberline {3.1}Setting up Globus Connect Personal for the first time}{19}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Removing Globus Connect Personal}{21}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Using Globus to transfer files}{21}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}How to add a new path to Globus}{24}{subsection.3.4}
-\contentsline {section}{\numberline {4}Compute Canada - Graham}{25}{section.4}
-\contentsline {subsection}{\numberline {4.1}Logging On and Off}{25}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Submitting Basic Jobs}{25}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Checking Job Status}{26}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Cancelling a Job}{27}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Submitting a job using a script}{27}{subsection.4.5}
-\contentsline {section}{\numberline {5}Calcul Qu\'{e}bec Systems}{29}{section.5}
-\contentsline {subsection}{\numberline {5.1}Briar\'{e}e}{29}{subsection.5.1}
-\contentsline {subsubsection}{\numberline {5.1.1}Briar\'{e}e Resources}{29}{subsubsection.5.1.1}
-\contentsline {subsubsection}{\numberline {5.1.2}MWE for Briar\'{e}e Submission Script}{29}{subsubsection.5.1.2}
-\contentsline {subsection}{\numberline {5.2}Guillimin}{30}{subsection.5.2}
-\contentsline {subsubsection}{\numberline {5.2.1}Guillimin Resources}{30}{subsubsection.5.2.1}
-\contentsline {subsection}{\numberline {5.3}MWE for Guillimin Submission Script}{31}{subsection.5.3}
-\contentsline {section}{\numberline {6}Sharcnet Systems}{31}{section.6}
-\contentsline {subsection}{\numberline {6.1}Sharcnet File Storage}{32}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Monk}{33}{subsection.6.2}
-\contentsline {subsubsection}{\numberline {6.2.1}Monk Resources}{33}{subsubsection.6.2.1}
-\contentsline {subsection}{\numberline {6.3}Orca}{33}{subsection.6.3}
-\contentsline {subsubsection}{\numberline {6.3.1}Orca Resources}{33}{subsubsection.6.3.1}
-\contentsline {subsection}{\numberline {6.4}Saw}{33}{subsection.6.4}
-\contentsline {subsubsection}{\numberline {6.4.1}Saw Resources}{33}{subsubsection.6.4.1}
-\contentsline {subsection}{\numberline {6.5}Sharcnet Visualisation Systems}{33}{subsection.6.5}
-\contentsline {subsubsection}{\numberline {6.5.1}Accessing vdi-centos6}{34}{subsubsection.6.5.1}
-\contentsline {subsubsection}{\numberline {6.5.2}Graphical VMD via vdi-centos6}{35}{subsubsection.6.5.2}
-\contentsline {section}{\numberline {7}Abbreviations}{37}{section.7}
+\contentsline {subsection}{\numberline {1.6}Interacting with Servers}{9}{subsection.1.6}
+\contentsline {subsubsection}{\numberline {1.6.1}Secure Shell (ssh) Connection}{9}{subsubsection.1.6.1}
+\contentsline {subsubsection}{\numberline {1.6.2}Secure Copy (scp) for Transferring Files}{9}{subsubsection.1.6.2}
+\contentsline {subsubsection}{\numberline {1.6.3}Using sshfs to edit remote files}{10}{subsubsection.1.6.3}
+\contentsline {subsubsection}{\numberline {1.6.4}Modules}{11}{subsubsection.1.6.4}
+\contentsline {subsection}{\numberline {1.7}Using the Nano Text Editor}{12}{subsection.1.7}
+\contentsline {subsection}{\numberline {1.8}Other File Manipulation Options}{15}{subsection.1.8}
+\contentsline {subsection}{\numberline {1.9}Compressed Files}{17}{subsection.1.9}
+\contentsline {section}{\numberline {2}Summary Table of Bash Commands}{18}{section.2}
+\contentsline {section}{\numberline {3}Globus File Transfer}{20}{section.3}
+\contentsline {subsection}{\numberline {3.1}Setting up Globus Connect Personal for the first time}{20}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Removing Globus Connect Personal}{22}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Using Globus to transfer files}{22}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}How to add a new path to Globus}{26}{subsection.3.4}
+\contentsline {section}{\numberline {4}Compute Canada - Graham}{27}{section.4}
+\contentsline {subsection}{\numberline {4.1}Logging On and Off}{27}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Submitting Basic Jobs}{28}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Checking Job Status}{29}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Cancelling a Job}{29}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Submitting a job using a script}{30}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}NAMD Jobs on Graham}{30}{subsection.4.6}
+\contentsline {section}{\numberline {5}Calcul Qu\'{e}bec Systems}{32}{section.5}
+\contentsline {subsection}{\numberline {5.1}Briar\'{e}e}{32}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Briar\'{e}e Resources}{32}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}MWE for Briar\'{e}e Submission Script}{32}{subsubsection.5.1.2}
+\contentsline {subsection}{\numberline {5.2}Guillimin}{33}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Guillimin Resources}{33}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}MWE for Guillimin Submission Script}{34}{subsubsection.5.2.2}
+\contentsline {section}{\numberline {6}Sharcnet Systems}{35}{section.6}
+\contentsline {subsection}{\numberline {6.1}Sharcnet File Storage}{35}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Monk Resources}{36}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Orca Resources}{36}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Sharcnet Visualisation Systems}{36}{subsection.6.4}
+\contentsline {subsubsection}{\numberline {6.4.1}Accessing vdi-centos6}{36}{subsubsection.6.4.1}
+\contentsline {subsubsection}{\numberline {6.4.2}Graphical VMD via vdi-centos6}{38}{subsubsection.6.4.2}
+\contentsline {section}{\numberline {7}Abbreviations}{40}{section.7}

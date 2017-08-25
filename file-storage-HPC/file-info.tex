@@ -45,9 +45,9 @@
 \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
 \let\endchangemargin=\endlist % enable margin changes for pages %
 
-\title{Specific Information for HPC Resources and MD Simulation File Structures}
+\title{Guide to the Linux Terminal and Running Jobs using High Performance Computing Resources}
 \author{Jennifer Garner}
-\date{April 21st, 2017}
+\date{August 2017}
 
 
 \begin{document}
@@ -216,7 +216,9 @@ x=\$((10+3)). Note that the double parentheses indicates an expression; setting 
 \end{lstlisting}
 Remember to refresh the file after this command has been added (\textit{source $\sim$/.profile}). Note that the name of the executable is not specified in the PATH; rather, the name of the directory containing the executable is given. 
 
-\subsection{Doing Server-Type Things}\label{server}
+\subsection{Interacting with Servers}\label{server}
+
+\subsubsection{Secure Shell (ssh) Connection}
 \quad\enskip\quad Accessing the Compute Canada HPC resources requires a secure shell (ssh) connection. For example, to access the system orca from Sharcnet from the local computer, use the following:
 \begin{lstlisting}[numbers=none]
 	user@local:~$ ssh username@orca.sharcnet.ca
@@ -228,7 +230,9 @@ Remember to refresh the file after this command has been added (\textit{source $
 	Connection to orca.sharcnet.ca closed.
 	user@local:~$
 \end{lstlisting}
-The prompt will usually change to include square brackets when the user sucessfully logs on to a server. Note that some servers, such as Orca and Saw, require another ssh login to access development nodes. For Saw, the equivalent command to the one shown above is \textit{ssh saw-dev1}. Check the system documentation to see if this extra step is required. The command to disconnect from a ssh login is \textit{logout}.
+The prompt will usually change to include square brackets when the user sucessfully logs on to a server. Note that some servers, such as Orca, require another ssh login to access development nodes. Check the system documentation to see if this extra step is required. The command to disconnect from a ssh login is \textit{logout}.
+
+\subsubsection{Secure Copy (scp) for Transferring Files}\label{scp}
 
 \quad To copy files and/or directories between a remote server and the local computer, the \textit{scp} (secure copy) command is used. This command is usually executed from the local computer (and not the server). That being said, the \textit{scp} command can be used from a remote server to send files to or receive files from another remote server. The format of the command is: \textit{scp <file/directory origin> <file/directory destination>}. When trying to send a directory and its contents, the argument \textit{scp -r} (recursive) must be specified. For example, to send a directory called test from the home directory on the local computer to Orca, use the command:
 
@@ -258,6 +262,39 @@ username@orca.sharcnet.ca's password:
 data.csv                           100%    0     0.0KB/s   00:00  
 \end{lstlisting}
 \quad\enskip\quad For submitting jobs, please refer to the server-specific guides in Sections \ref{CalcQ} (Calcul Qu\'{e}bec) and \ref{Sharc} (Sharcnet).
+
+\subsubsection{Using sshfs to edit remote files}\label{sshfs}
+
+\quad As an alternative to editing files directly on the remote system through ssh, a remote directory can be mounted onto a home computer using \textit{sshfs}. The following instructions were taken from the following video \url{https://www.youtube.com/watch?v=VONgiHWc-gE}, beginning at timestamp 4:33. First, install sshfs (assumes the user has sudo access):
+
+\begin{lstlisting}[numbers=none]
+user@local:~$ sudo apt install sshfs
+\end{lstlisting}
+
+Next, create a directory on the local computer. This will serve as a location to mount the remote directory. For example, the following instruction will create a directory called \textbf{mount-point-1} in the home directory:
+
+\begin{lstlisting}[numbers=none]
+user@local:~$ mkdir ~/mount-point-1
+\end{lstlisting}
+
+Then, determine the directory of the remote server that you would like to mount, and use \textit{sshfs} to mount that directory on the empty directory that was created on the local computer.
+
+\begin{lstlisting}[numbers=none]
+user@local:~$ sshfs username@system.ca:/path/to-mount ~/mount-point-1
+\end{lstlisting}
+
+This command may require you to login to the remote system. Note that the command has a similar structure to the \textit{scp} (secure copy) command, where you must first specify the name of the remote system, followed by a colon and the path to the directory. After this command has been executed, the user should be able to access the contents of the remote directory (to-mount) on the local computer. Editing these files on the local computer (with a text editor, for instance) will also update the files on the remote system.
+
+\quad When the user has finished editing or viewing files on the home computer, the directory should be unmounted as so:
+
+\begin{lstlisting}[numbers=none]
+user@local:~$ fusermount -u ~/mount-point-1
+\end{lstlisting}
+
+Where mount-point-1 should be replaced by the name of the directory on the home computer.
+
+
+\subsubsection{Modules}
 
 \quad Sometimes jobs will require certain modules - these can be thought of as programs or supporting packages. To see the available modules currently loaded on a system, the command is \textit{module list}. To see packages that can be loaded to a system, the command is \textit{module avail}. Finally, to load a module, the command is \textit{module load <modulename>}, and to unload a module, the command is \textit{module unload <modulename>}. Another command is \textit{module show <modulename>}, which provides information about a module. To remove all of the currently loaded modules, use the command \textit{module purge}. Note that some packages may have dependencies (need other modules to be loaded before they can be run), or conflicts (two modules cannot be loaded at the same time). This information can usually be found in the Sharcnet Documentation or in Calcul Qu\'{e}bec's Wiki pages. 
 
@@ -469,6 +506,8 @@ module & interact with modules on HPC system & examples: \textit{module list, mo
 rm & remove & PERMANENTLY REMOVES FILES, or remove directories (permanently) with -r. do not use unless absolutely sure you want to remove something - rm does not send files to a recycle bin!!! \\
 tar -czvf & create compressed archive & example: \textit{tar -czvf archive-name.tar.gz directory-name} \\
 tar -xzvf & extract compressed archive to current directory & example: \textit{tar -xzvf archive-name} \\
+sshfs & mount a remote directory on the local system & example: \textit{sshfs user@remotehost.ca:/path/to-mount /$\sim$/local-dir} \\
+fusermount & unmount remote directories & example: \textit{fusermount -u /$\sim$/local-dir} \\
 
 \hline
 \end{tabular}
@@ -479,7 +518,7 @@ tar -xzvf & extract compressed archive to current directory & example: \textit{t
 
 \section{Globus File Transfer}\label{globus-main}
 
-\quad As an alternative to scp (secure copy) - see Section \ref{server}, Globus can be used to transfer files between servers and personal computers. The user will first need to register for a Globus account. Use the following link to their website: \url{https://www.globusid.org/login}.
+\quad As an alternative to scp (secure copy) - see Section \ref{scp}, Globus can be used to transfer files between servers and personal computers. The user will first need to register for a Globus account. Use the following link to their website: \url{https://www.globusid.org/login}.
 
 \quad If you have yet to create a personal endpoint (and would like to transfer files between a home computer and a server), follow the instructions in Section \ref{globus-setup}. To transfer files between servers (or if you already have a personal endpoint), skip to Section \ref{useglobus}.
 
@@ -595,6 +634,15 @@ It should be noted that since most of the Sharcnet systems are linked under a co
 
 \quad Another consideration is the directory from which you wish to transfer files. The default directory that is opened is the home directory (/$\sim$/); however, most jobs are stored in the project or scratch directories. You will need to enter the corresponding directory into the white box labelled \textit{Path} - see Figure \ref{globus-trsf}. For example, to access the scratch directory in Graham, enter /scratch/user (where user is replaced by the real username) into the Path box.
 
+\quad Once two endpoints have been chosen (note, remote servers may require login credentials), use the arrow keys to transfer files (Figure \ref{globus-ex}). Optionally, you may give your transfer a name in the \textit{Label This Transfer} box. To see past transfers, click the \textbf{RECENT ACTIVITY} link. Globus should email you after transfers have successfully completed.
+
+\begin{figure}[H]
+\centering
+\caption{Shows an example of a transfer of the charmm-gui\_equilibration\_files directory from the home directory on Sharcnet to the scratch directory on Graham. The name of the transfer is \textit{transfer-example}. The transfer begins once the blue arrow is pressed.}
+\includegraphics[width=\textwidth]{globus-ex}
+\label{globus-ex}
+\end{figure}
+
 \subsection{How to add a new path to Globus}
 
 \quad By default, Globus Connect Personal only has access to your home directory (/$\sim$/). If you have an external hard drive or USB device, these are not likely to be mounted in the home directory. Therefore, you must give Globus permission to access them. Usually, such external drives are stored in Linux machines under the /media/username directory. You can add this path (to enable access to all mountable media) or a specific path to Globus by opening the Globus Connect Personal GUI window (Figure \ref{globus-status}) and selecting File $\rightarrow$ Preferences. A new window should open called \textit{Access Path Configuration}, as shown in Figure \ref{globus-add}.
@@ -662,15 +710,15 @@ Where someuser should be replaced by the group name. The group name can be found
 \end{lstlisting}
  A full list of arguments can be found here: \url{https://slurm.schedmd.com/sbatch.html}. Note that most arguments have an explicit form (example $--$time=00:60:00) or a short form (example $-$t 00:60:00). 
  
-\quad For example, to submit a script called my-script.py to run on Graham for 20 minutes and writing to a file called output.txt, the command would be: 
+\quad For example, to submit a python script called my-script.py to run on Graham for 20 minutes and writing to a file called output.txt, the command would be: 
 \begin{lstlisting}[numbers=none, basicstyle=\normalsize]
-sbatch -t 00:20:00 -o output.txt ./my-script.py
+sbatch -t 00:20:00 -o output.txt python my-script.py
 \end{lstlisting}
 
-\quad If the user has not specified the job name as an environment variable in the $\sim$/.bashrc, it will be necessary to add the account argument with every submission.
+\quad If the user has not specified the job name as an environment variable in $\sim$/.bashrc, it will be necessary to add the account argument with every submission.
 
 \begin{lstlisting}[numbers=none, basicstyle=\normalsize]
-sbatch -t 00:20:00 -o output.txt --account=def-someuser ./my-script.py
+sbatch -t 00:20:00 -o output.txt --account=def-someuser python my-script.py
 \end{lstlisting}
 
 \quad As with other servers, some jobs may require loading modules prior to submission. The same commands can be used on Graham as with other servers (i.e. \textit{module (un)load}, \textit{module list}, and \textit{module avail} all work). For example, the default version of python on Graham is python2.7. To load another version of python, use:
@@ -706,7 +754,7 @@ Currently Loaded Modules:
 
 \subsection{Submitting a job using a script}
 
-\quad When a user has a job that is more complicated, usually they will write a script to submit that job. A script can be generated in a basic text editor on Graham. Scripts can also be written on the local system and subsequently uploaded to Graham. For information on how to transfer files between servers and personal computers, see either Section \ref{server} or Section \ref{globus-main}. 
+\quad When a user has a job that is more complicated, usually they will write a script to submit that job. A script can be generated in a basic text editor on Graham. Scripts can also be written on the local system and subsequently uploaded to Graham. For information on how to transfer files between servers and personal computers, see Sections \ref{scp}, \ref{sshfs}, or \ref{globus-main}. 
 
 \quad An example of a submission script can be seen below. To submit this script to Graham, use the command: \textit{sbatch script}, where script should be replaced with the actual script file name.
 
@@ -725,7 +773,46 @@ module load namd-multicore/2.12
 namd2 +p32 +idlepoll step7.1_production.inp
 \end{lstlisting}
 
-\quad The first line is indicating that the commands are in bash. The lines containing \#SBATCH (lines 2-9) must preceed any other commands to be run by the server. These lines allocate resources. The minimum resources that must be specified are the time limit ($-$t or $--$t=) and the group name ($--$account=def-someuser). All other allocations are optional.
+\quad The first line is indicating that the commands are in bash. The lines containing \#SBATCH (lines 2-9) must preceed any other commands to be run by the server. These lines allocate resources. The minimum resources that must be specified are the time limit ($-$t or $--$t=) and the group name ($--$account=def-someuser). All other allocations are optional. Line 8, which specifies the error file, uses the percent sign to indicate job name and job id (\%x and \%j respectively). The actual error file would be similiar to: error\_production\_1203403.
+
+\subsection{NAMD Jobs on Graham}
+
+\quad NAMD is used for Molecular Dynamics (MD) jobs. Trajectory (dcd) files are generated. Combining these trajectory files with protein structure (psf) and protein database (pdb) structure files in VMD will generate a simulation that can be viewed and analysed. The Compute Canada webpage for NAMD is here: \url{https://docs.computecanada.ca/wiki/NAMD}. 
+
+\quad NAMD can be run using a combination of CPUs and GPUs on the Graham system. To use GPUs, modules must be compiled with CUDA support. The CUDA module must also be loaded:
+
+\begin{lstlisting}[numbers=none]
+module load cuda/8.0.44
+\end{lstlisting}
+
+\quad When running a NAMD simulation, you can request multiple nodes to complete the job. To use multiple nodes, this requires a 
+
+\quad When running a NAMD job for the first time, it is a good idea to run some benchmarking tests. NAMD jobs perform better if they use full nodes. On Graham, a full node has 32 CPUs ("tasks"). NAMD jobs also fail more often if using multiple nodes (from personal experience). So there is a trade-off between stability in using fewer nodes and shorter time-to-completion in using more nodes. Adding a GPU usually helps to shorten the time-to-completion of a job.
+
+\quad To run a benchmark, submit multiple instances of the same job to Graham, each with a short time limit (about 5 minutes). Each test should use a different quantity of resources. The jobs will not complete,  but the program output should provide some information as to an estimate of resources required. Benchmarking is also a good way to make sure the NAMD job is using the number of CPUs that were requested.
+
+\quad After the jobs have finished their allocated time, use \textit{grep} to search for the keyword \textbf{Benchmark}.
+
+
+\quad The age of the computing resource is also important for time-to-completion. For example, running 1ns of a membrane simulation on the old system Saw would take more than 10 hours with 64CPUs, whereas running the same simulation on Graham would take less than 2 hours with 32CPUs and 2GPUs: 
+
+\begin{lstlisting}[numbers=none, basicstyle=\scriptsize]
+[user@gra-login4 namd]$ grep -i 'benchmark' step7.1_production.log 
+Info: Benchmark time: 64 CPUs 0.0801173 s/step 0.463642 days/ns 917.887 MB memory
+Info: Benchmark time: 64 CPUs 0.0803184 s/step 0.464806 days/ns 925.812 MB memory
+Info: Benchmark time: 64 CPUs 0.0804023 s/step 0.465291 days/ns 925.812 MB memory
+Info: Benchmark time: 64 CPUs 0.0814741 s/step 0.471493 days/ns 925.812 MB memory
+Info: Benchmark time: 64 CPUs 0.0832847 s/step 0.481972 days/ns 925.812 MB memory
+Info: Benchmark time: 64 CPUs 0.0821933 s/step 0.475656 days/ns 925.812 MB memory
+[user@gra-login4 namd]$ grep -i 'benchmark' step7.77_production.log
+Info: Benchmark time: 32 CPUs 0.0109838 s/step 0.0635635 days/ns 1114.56 MB memory
+Info: Benchmark time: 32 CPUs 0.0110412 s/step 0.0638959 days/ns 1121.52 MB memory
+Info: Benchmark time: 32 CPUs 0.0111505 s/step 0.0645286 days/ns 1126.04 MB memory
+Info: Benchmark time: 32 CPUs 0.0110386 s/step 0.0638808 days/ns 1127.25 MB memory
+Info: Benchmark time: 32 CPUs 0.0110486 s/step 0.0639384 days/ns 1127.71 MB memory
+Info: Benchmark time: 32 CPUs 0.0110241 s/step 0.063797 days/ns 1128.59 MB memory
+
+\end{lstlisting} 
 
 \newpage
 
@@ -800,7 +887,7 @@ mpiexec -n 24 namd2 input-file.inp > output-file.log
 
 \quad Module information for Guillimin can be found at this website: \url{https://wiki.calculquebec.ca/w/Modules_disponibles_sur_Guillimin?setlang=en}
 
-\subsection{MWE for Guillimin Submission Script}
+\subsubsection{MWE for Guillimin Submission Script}
 
 \begin{lstlisting}
 #!/bin/bash
@@ -818,48 +905,42 @@ mpiexec -n 36 namd2 input-file.inp > output-file.log
 
 \quad Note that assigning RAM for Guillimin jobs is slightly different than for Briar\'{e}e. Otherwise, these are the minimum number of instructions that should be given for a job submission. The -n argument specifies to use 36 cores for the job (3x12).
 
+\newpage
+
 \section{Sharcnet Systems}\label{Sharc}
 
 \quad Systems currently in use:
 \begin{itemize}
 \item Monk
 \item Orca
-\item Saw
 \end{itemize}
 
 \quad Getting help for Sharcnet systems involves submitting a ticket, and there is a unified help email (unlike Calcul Qu\'{e}bec, which has emails per system). Contact: help@sharcnet.ca. Sharcnet also has regular webinars that can be accessed via VidyoDesktop. These webinars are also uploaded to their youtube channel. The webinars are typically 1 hour long and run on Wednesdays at noon (12pm). They cover a variety of computing topics.
 
 \subsection{Sharcnet File Storage}
-\quad For the most part, Sharcnet has a unified storage space across the systems mentioned in this document: Monk, Orca, Saw, and vdi-centos6. This means that any files generated by these systems will be accessible by the other systems. The details for the Sharcnet file storage can be found on this webpage: \url{https://www.sharcnet.ca/my/systems/storage}. 
+\quad For the most part, Sharcnet has a unified storage space across the systems mentioned in this document: Monk, Orca, and vdi-centos6. This means that any files generated by these systems will be accessible by the other systems. The details for the Sharcnet file storage can be found on this webpage: \url{https://www.sharcnet.ca/my/systems/storage}. 
 
 \quad The home storage space (located at /home/username) has a quota of 10GB per user and is backed up. It should be used for important files such as source code, scripts, parameters, etc. The user cannot exeed the quota, which means that jobs will not be able to write data to the home space past 10GB. 
 
 \quad The work directory (located at /work/username) has a quota of 1TB, but it is not backed-up. It should be used for large files. The scratch directory (located at /scratch/username) can be used for large file storage (no quota), but files must be deleted or moved from this space, as files will be removed after 62 days. 
 
-\quad The freeezer directory (located at /freezer/username for orca login nodes and /global/freezer/username for saw login nodes) has a quota of 2TB; files stored here have a lifetime of 2 years. This space can only be accessed from login nodes (for example, you can only access the freezer directory from login not after ssh to a development node).
+\quad The freeezer directory (located at /freezer/username for orca login nodes) has a quota of 2TB; files stored here have a lifetime of 2 years. This space can only be accessed from login nodes (for example, you can only access the freezer directory from login not after ssh to a development node).
 
 \begin{lstlisting}[numbers=none]
-[username@saw-login1 ~]$ cd /global/freezer/username
-[username@saw-login1 username]$ ssh saw-dev1
-[username@saw331 ~]$ cd /global/freezer/username
--bash: cd: /global/freezer/username: No such file or directory
+[username@orc-login1 ~]$ cd /freezer/username/
+[username@orc-login1 username]$ ssh orc-dev2
+[username@orc130 ~]$ cd /freezer/username
+-bash: cd: /freezer/username: No such file or directory
+
 \end{lstlisting}
 \quad The command \textit{quota} will show the file usage for the work and home directories on Sharcnet. Alternatively, login to the Sharcnet web portal - \url{https://www.sharcnet.ca/my/security/login} - and scroll down to \textbf{Disk Usage}, which will show a plot of the files stored by age in the home and work directories. If the user exceeds their quota for either the work or freezer directories, the user has a 3-day grace period to reduce their file count. After the grace period, if the user has not reduced their file count, he/she will no longer be able to submit jobs on Sharcnet. Quotas are updated at approximately midnight each day, but this update depends on the disk usage and the system.
 
-\subsection{Monk}
-
-\subsubsection{Monk Resources}
+\subsection{Monk Resources}
 \quad Monk is a GPU system on Sharcnet. It has a total of 54 nodes, with 8 cores, 2 GPUs, and 48GB of RAM per node. This system should only be used for jobs that can make use of GPU acceleration. It is tied-in to the file-system shared by Orca, Saw, and other Sharcnet systems.
 
-\subsection{Orca}
-
-\subsubsection{Orca Resources}
+\subsection{Orca Resources}
 
 \quad Orca is a CPU system on Sharcnet. It has a total of 392 nodes, split into 4 groups. Group 1 (nodes 1-320) has 24 cores and 32GB RAM per node. Group 2 (nodes 321-360) has 16 cores and 32GB RAM per node. Group 3 (nodes 361-388) has 16 cores and 64GB RAM per node. Lastly, group 4 (nodes 389-392) has 16 cores and 128GB RAM per node. Orca has 4 development nodes: orc-dev1, orc-dev2, orc-dev3, and orc-dev4. These development nodes should be accessed after logging in to the system (\textit{ssh orc-dev1}). The login nodes are not supposed to support heavy CPU usage, and are designed as a stable access point to the system. Code can be run from these development nodes directly (without submitting to the queue) for testing purposes. These sorts of programs can be run for up to 3 CPU days (which is not equal to 3 days). 
-
-\subsection{Saw}
-
-\subsubsection{Saw Resources}
 
 \subsection{Sharcnet Visualisation Systems}\label{visual}
 

@@ -4,38 +4,39 @@
 \BOOKMARK [2][-]{subsection.1.3}{Aliases}{section.1}% 4
 \BOOKMARK [2][-]{subsection.1.4}{Environment Variables}{section.1}% 5
 \BOOKMARK [2][-]{subsection.1.5}{Adding Executables to PATH}{section.1}% 6
-\BOOKMARK [2][-]{subsection.1.6}{Doing Server-Type Things}{section.1}% 7
-\BOOKMARK [2][-]{subsection.1.7}{Using the Nano Text Editor}{section.1}% 8
-\BOOKMARK [2][-]{subsection.1.8}{Other File Manipulation Options}{section.1}% 9
-\BOOKMARK [2][-]{subsection.1.9}{Compressed Files}{section.1}% 10
-\BOOKMARK [1][-]{section.2}{Summary Table of Bash Commands}{}% 11
-\BOOKMARK [1][-]{section.3}{Globus File Transfer}{}% 12
-\BOOKMARK [2][-]{subsection.3.1}{Setting up Globus Connect Personal for the first time}{section.3}% 13
-\BOOKMARK [2][-]{subsection.3.2}{Removing Globus Connect Personal}{section.3}% 14
-\BOOKMARK [2][-]{subsection.3.3}{Using Globus to transfer files}{section.3}% 15
-\BOOKMARK [2][-]{subsection.3.4}{How to add a new path to Globus}{section.3}% 16
-\BOOKMARK [1][-]{section.4}{Compute Canada - Graham}{}% 17
-\BOOKMARK [2][-]{subsection.4.1}{Logging On and Off}{section.4}% 18
-\BOOKMARK [2][-]{subsection.4.2}{Submitting Basic Jobs}{section.4}% 19
-\BOOKMARK [2][-]{subsection.4.3}{Checking Job Status}{section.4}% 20
-\BOOKMARK [2][-]{subsection.4.4}{Cancelling a Job}{section.4}% 21
-\BOOKMARK [2][-]{subsection.4.5}{Submitting a job using a script}{section.4}% 22
-\BOOKMARK [1][-]{section.5}{Calcul Qu\351bec Systems}{}% 23
-\BOOKMARK [2][-]{subsection.5.1}{Briar\351e}{section.5}% 24
-\BOOKMARK [3][-]{subsubsection.5.1.1}{Briar\351e Resources}{subsection.5.1}% 25
-\BOOKMARK [3][-]{subsubsection.5.1.2}{MWE for Briar\351e Submission Script}{subsection.5.1}% 26
-\BOOKMARK [2][-]{subsection.5.2}{Guillimin}{section.5}% 27
-\BOOKMARK [3][-]{subsubsection.5.2.1}{Guillimin Resources}{subsection.5.2}% 28
-\BOOKMARK [2][-]{subsection.5.3}{MWE for Guillimin Submission Script}{section.5}% 29
-\BOOKMARK [1][-]{section.6}{Sharcnet Systems}{}% 30
-\BOOKMARK [2][-]{subsection.6.1}{Sharcnet File Storage}{section.6}% 31
-\BOOKMARK [2][-]{subsection.6.2}{Monk}{section.6}% 32
-\BOOKMARK [3][-]{subsubsection.6.2.1}{Monk Resources}{subsection.6.2}% 33
-\BOOKMARK [2][-]{subsection.6.3}{Orca}{section.6}% 34
-\BOOKMARK [3][-]{subsubsection.6.3.1}{Orca Resources}{subsection.6.3}% 35
-\BOOKMARK [2][-]{subsection.6.4}{Saw}{section.6}% 36
-\BOOKMARK [3][-]{subsubsection.6.4.1}{Saw Resources}{subsection.6.4}% 37
-\BOOKMARK [2][-]{subsection.6.5}{Sharcnet Visualisation Systems}{section.6}% 38
-\BOOKMARK [3][-]{subsubsection.6.5.1}{Accessing vdi-centos6}{subsection.6.5}% 39
-\BOOKMARK [3][-]{subsubsection.6.5.2}{Graphical VMD via vdi-centos6}{subsection.6.5}% 40
-\BOOKMARK [1][-]{section.7}{Abbreviations}{}% 41
+\BOOKMARK [2][-]{subsection.1.6}{Interacting with Servers}{section.1}% 7
+\BOOKMARK [3][-]{subsubsection.1.6.1}{Secure Shell \(ssh\) Connection}{subsection.1.6}% 8
+\BOOKMARK [3][-]{subsubsection.1.6.2}{Secure Copy \(scp\) for Transferring Files}{subsection.1.6}% 9
+\BOOKMARK [3][-]{subsubsection.1.6.3}{Using sshfs to edit remote files}{subsection.1.6}% 10
+\BOOKMARK [3][-]{subsubsection.1.6.4}{Modules}{subsection.1.6}% 11
+\BOOKMARK [2][-]{subsection.1.7}{Using the Nano Text Editor}{section.1}% 12
+\BOOKMARK [2][-]{subsection.1.8}{Other File Manipulation Options}{section.1}% 13
+\BOOKMARK [2][-]{subsection.1.9}{Compressed Files}{section.1}% 14
+\BOOKMARK [1][-]{section.2}{Summary Table of Bash Commands}{}% 15
+\BOOKMARK [1][-]{section.3}{Globus File Transfer}{}% 16
+\BOOKMARK [2][-]{subsection.3.1}{Setting up Globus Connect Personal for the first time}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.2}{Removing Globus Connect Personal}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.3}{Using Globus to transfer files}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.4}{How to add a new path to Globus}{section.3}% 20
+\BOOKMARK [1][-]{section.4}{Compute Canada - Graham}{}% 21
+\BOOKMARK [2][-]{subsection.4.1}{Logging On and Off}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.2}{Submitting Basic Jobs}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.3}{Checking Job Status}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.4}{Cancelling a Job}{section.4}% 25
+\BOOKMARK [2][-]{subsection.4.5}{Submitting a job using a script}{section.4}% 26
+\BOOKMARK [2][-]{subsection.4.6}{NAMD Jobs on Graham}{section.4}% 27
+\BOOKMARK [1][-]{section.5}{Calcul Qu\351bec Systems}{}% 28
+\BOOKMARK [2][-]{subsection.5.1}{Briar\351e}{section.5}% 29
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Briar\351e Resources}{subsection.5.1}% 30
+\BOOKMARK [3][-]{subsubsection.5.1.2}{MWE for Briar\351e Submission Script}{subsection.5.1}% 31
+\BOOKMARK [2][-]{subsection.5.2}{Guillimin}{section.5}% 32
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Guillimin Resources}{subsection.5.2}% 33
+\BOOKMARK [3][-]{subsubsection.5.2.2}{MWE for Guillimin Submission Script}{subsection.5.2}% 34
+\BOOKMARK [1][-]{section.6}{Sharcnet Systems}{}% 35
+\BOOKMARK [2][-]{subsection.6.1}{Sharcnet File Storage}{section.6}% 36
+\BOOKMARK [2][-]{subsection.6.2}{Monk Resources}{section.6}% 37
+\BOOKMARK [2][-]{subsection.6.3}{Orca Resources}{section.6}% 38
+\BOOKMARK [2][-]{subsection.6.4}{Sharcnet Visualisation Systems}{section.6}% 39
+\BOOKMARK [3][-]{subsubsection.6.4.1}{Accessing vdi-centos6}{subsection.6.4}% 40
+\BOOKMARK [3][-]{subsubsection.6.4.2}{Graphical VMD via vdi-centos6}{subsection.6.4}% 41
+\BOOKMARK [1][-]{section.7}{Abbreviations}{}% 42
