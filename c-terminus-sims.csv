@@ -1,39 +1,39 @@
-Simulation Name,WT/Mu,Protein Name,Bacteria Name,Residue Range,Salt Type,Salt Concentration,Extra Comments,Progress (ns),Server Name,Source Directory
-AA1-36_sep20_0.25M,WT,ProP,Ec,465-500,KCl,0.25,"anti-parallel coiled-coil, separated 20A",50.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA1-36_sep20_0.25M/nsep20_025
-AA1-36_sep25_0.25M,WT,ProP,Ec,465-500,KCl,0.25,"anti-parallel coiled-coil, separated 25A",125.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA1-36_sep25_0.25M/namdsep025
-AA4-33_sep20_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"anti-parallel coiled-coil, separated 20A,some data corruption on server",50.0,graham (from guillimin),/home/jgarne01/project/jgarne01/AA4-33_sep20_0.25M/nsep20025
-AA4-33_sep8A_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"anti-parallel coiled-coil, separated 8A",50.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA4-33_sep8A_0.25M/nsep8025
-AA4-33_sep8A_0.50M,WT,ProP,Ec,468-497,KCl,0.5,"anti-parallel coiled-coil, separated 8A",100.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA4-33_sep8A_0.50M/nsep8A05
-AA4-33_sep8A_parallel_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"parallel coiled-coil, separated 8A",25.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA4-33_sep8A_parallel_0.25M/nsep8p025
-AA4-33_sep8A_parallel_0.50M,WT,ProP,Ec,468-497,KCl,0.5,"parallel coiled-coil, separated 8A",100.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA4-33_sep8A_parallel_0.50M/nsep8p05
-AA4-33_sep8A_parallel_1.00M,WT,ProP,Ec,468-497,KCl,1.0,"parallel coiled-coil, separated 8A",25.0,graham (from briaree),/home/jgarne01/project/jgarne01/AA4-33_sep8A_parallel_1.00M/nsep8p1M
-E480C-0.25M,Mu_E480C,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,50.0,graham (from guillimin),/home/jgarne01/project/jgarne01/E480C-0.25M/namdE025
-E480C-0.50M,Mu_E480C,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,50.0,graham (from guillimin),/home/jgarne01/project/jgarne01/E480C-0.50M/namdE05
-E480C-1.00M,Mu_E480C,ProP,Ec,465-500,KCl,1.0,anti-parallel coiled-coil,50.0,graham (from guillimin),/home/jgarne01/project/jgarne01/E480C-1.00M/namdE1M
-Ec_439-500_single_0.50M,WT,ProP,Ec,439-500,KCl,0.5,single helix,100.0,graham (from guillimin),/home/jgarne01/project/jgarne01/Ec_439-500_single_0.50M/n439-05
-I470A-0.25M,"Mu_I470,4,7A",ProP,Ec,465-500,KCl,0.25,"anti-parallel coiled-coil, triple mutation",175.0,graham (from guillimin),/home/jgarne01/project/jgarne01/I470A-0.25M/namd025
-I470A-0.50M,"Mu_I470,4,7A",ProP,Ec,465-500,KCl,0.5,"anti-parallel coiled-coil, triple mutation",175.0,graham (from guillimin),/home/jgarne01/project/jgarne01/I470A-0.50M/namd05
-I470A-1.00M,"Mu_I470,4,7A",ProP,Ec,465-500,KCl,1.0,"anti-parallel coiled-coil, triple mutation",167.0,graham (from guillimin),/home/jgarne01/project/jgarne01/I470A-1.00M/namd1M
-I474P-0.25M,Mu_I474P,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,125.0,graham (from briaree),/home/jgarne01/project/jgarne01/I474P-0.25M/namd025
-I474P-0.50M,Mu_I474P,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,125.0,graham (from briaree),/home/jgarne01/project/jgarne01/I474P-0.50M/namdP05
-I474P-1.00M,Mu_I474P,ProP,Ec,465-500,KCl,1.0,anti-parallel coiled-coil,125.0,graham (from briaree),/home/jgarne01/project/jgarne01/I474P-1.00M/namd1M
-PCT_AA1-36_0.25M,WT,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,125.0,graham (from guillimin/briaree),/home/jgarne01/project/jgarne01/PCT_AA1-36_0.25M/namd36025
-PCT_AA1-36_0.50M,WT,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,125.0,graham (from guillimin/briaree),/home/jgarne01/project/jgarne01/PCT_AA1-36_0.50M/namd3605
-PCT_AA1-36_1.00M,WT,ProP,Ec,465-500,KCl,1.0,anti-parallel coiled-coil,125.0,graham (from guillimin/briaree),/home/jgarne01/project/jgarne01/PCT_AA1-36_1.00M/namd361M
-PCT_AA4-33_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"anti-parallel coiled-coil, based directly on NMR structure",50.0,graham (from briaree),/home/jgarne01/project/jgarne01/PCT_AA4-33_0.25M/namd433025
-PCT_AA4-33_0.50M,WT,ProP,Ec,468-497,KCl,0.5,"anti-parallel coiled-coil, based directly on NMR structure",30.0,graham (from briaree),/home/jgarne01/project/jgarne01/PCT_AA4-33_0.50M/namd43305
-PCT_AA4-33_1.00M,WT,ProP,Ec,468-497,KCl,1.0,"anti-parallel coiled-coil, based directly on MNR structure",30.0,graham (from briaree),/home/jgarne01/project/jgarne01/PCT_AA4-33_1.00M/namd4331M
-PHO1_AA1-36_0.25M,WT,ProP,Ec,465-500,KH2PO4,0.25,anti-parallel coiled-coil,125.0,graham (from guillimin),/home/jgarne01/project/jgarne01/PHO1_AA1-36_0.25M/np36025
-PHO1_AA1-36_0.50M,WT,ProP,Ec,465-500,KH2PO4,0.5,anti-parallel coiled-coil,125.0,graham (from guillimin),/home/jgarne01/project/jgarne01/PHO1_AA1-36_0.50M/np3605
-PHO1_AA1-36_1.00M,WT,ProP,Ec,465-500,KH2PO4,1.0,anti-parallel coiled-coil,125.0,graham (from guillimin),/home/jgarne01/project/jgarne01/PHO1_AA1-36_1.00M/np361M
-PHO1_AA4-33_0.25M,WT,ProP,Ec,468-497,KH2PO4,0.25,anti-parallel coiled-coil,50.0,graham (from guillimin/briaree),/home/jgarne01/project/jgarne01/PHO1_AA4-33_0.25M/np33025
-PHO1_AA4-33_0.50M,WT,ProP,Ec,468-497,KH2PO4,0.5,anti-parallel coiled-coil,50.0,graham (from guillimin),/home/jgarne01/project/jgarne01/PHO1_AA4-33_0.50M/np3305
-PHO1_AA4-33_1.00M,WT,ProP,Ec,468-497,KH2PO4,1.0,anti-parallel coiled-coil,50.0,graham (from guillimin),/home/jgarne01/project/jgarne01/PHO1_AA4-33_1.00M/np331M
-PHO1_AA439-500_single_0.50M,WT,ProP,Ec,439-500,KH2PO4,0.5,single helix,100.0,graham (from guillimin),/home/jgarne01/project/jgarne01/PHO1_AA439-500_single_0.50M/npho439-05
-R488I-0.25M,Mu_R488I,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,50.0,graham (from briaree),/home/jgarne01/project/jgarne01/R488I-0.25M/namd025V
-R488I-0.50M,Mu_R488I,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,50.0,graham (from briaree),/home/jgarne01/project/jgarne01/R488I-0.50M/namdR05
-R488I-1.00M,Mu_R488I,ProP,Ec,465-500,KCl,1.0,anti-parallel coiled-coil,50.0,graham (from briaree),/home/jgarne01/project/jgarne01/R488I-1.00M/namd1MV
-Xc-446-496-0.50M,WT,ProP,Xc,446-496,KCl,0.5,"single peptide, full c-terminus",100.0,graham (from guillimin),/home/jgarne01/project/jgarne01/Xc-446-496-0.50M/nXc-05
-Y467I-0.25M,Mu_Y467I,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,112.0,graham (from briaree),/home/jgarne01/project/jgarne01/Y467I-0.25M/namdY025
-Y467I-0.50M,Mu_Y467I,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,113.0,graham (from briaree),/home/jgarne01/project/jgarne01/Y467I-0.50M/namdY05
-Y467I-1.00M,Mu_Y467I,ProP,Ec,465-500,KCl,1.0,anti-parallel coiled-coil,117.0,graham (from briaree),/home/jgarne01/project/jgarne01/Y467I-1.00M/namdY1M
+Simulation Name,WT/Mu,Protein Name,Bacteria Name,Residue Range,Salt Type,Salt Concentration,Extra Comments,Progress (ns),File Location,Source Directory
+AA1-36_sep20_0.25M,WT,ProP,Ec,465-500,KCl,0.25,"anti-parallel coiled-coil, separated 20A",50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/AA1-36_sep20_0.25M/nsep20_025
+AA1-36_sep25_0.25M,WT,ProP,Ec,465-500,KCl,0.25,"anti-parallel coiled-coil, separated 25A",125,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/AA1-36_sep25_0.25M/namdsep025
+AA4-33_sep20_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"anti-parallel coiled-coil, separated 20A,some data corruption on server",50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/AA4-33_sep20_0.25M/nsep20025
+AA4-33_sep8A_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"anti-parallel coiled-coil, separated 8A",50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/AA4-33_sep8A_0.25M/nsep8025
+AA4-33_sep8A_0.50M,WT,ProP,Ec,468-497,KCl,0.5,"anti-parallel coiled-coil, separated 8A",100,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/AA4-33_sep8A_0.50M/nsep8A05
+AA4-33_sep8A_parallel_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"parallel coiled-coil, separated 8A",25,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/AA4-33_sep8A_parallel_0.25M/nsep8p025
+AA4-33_sep8A_parallel_0.50M,WT,ProP,Ec,468-497,KCl,0.5,"parallel coiled-coil, separated 8A",100,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/AA4-33_sep8A_parallel_0.50M/nsep8p05
+AA4-33_sep8A_parallel_1.00M,WT,ProP,Ec,468-497,KCl,1,"parallel coiled-coil, separated 8A",25,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/AA4-33_sep8A_parallel_1.00M/nsep8p1M
+E480C-0.25M,Mu_E480C,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/E480C-0.25M/namdE025
+E480C-0.50M,Mu_E480C,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/E480C-0.50M/namdE05
+E480C-1.00M,Mu_E480C,ProP,Ec,465-500,KCl,1,anti-parallel coiled-coil,50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/E480C-1.00M/namdE1M
+Ec_439-500_single_0.50M,WT,ProP,Ec,439-500,KCl,0.5,single helix,100,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/Ec_439-500_single_0.50M/n439-05
+I470A-0.25M,"Mu_I470,4,7A",ProP,Ec,465-500,KCl,0.25,"anti-parallel coiled-coil, triple mutation",175,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/I470A-0.25M/namd025
+I470A-0.50M,"Mu_I470,4,7A",ProP,Ec,465-500,KCl,0.5,"anti-parallel coiled-coil, triple mutation",175,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/I470A-0.50M/namd05
+I470A-1.00M,"Mu_I470,4,7A",ProP,Ec,465-500,KCl,1,"anti-parallel coiled-coil, triple mutation",167,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/I470A-1.00M/namd1M
+I474P-0.25M,Mu_I474P,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,125,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/I474P-0.25M/namd025
+I474P-0.50M,Mu_I474P,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,125,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/I474P-0.50M/namdP05
+I474P-1.00M,Mu_I474P,ProP,Ec,465-500,KCl,1,anti-parallel coiled-coil,125,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/I474P-1.00M/namd1M
+PCT_AA1-36_0.25M,WT,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,125,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PCT_AA1-36_0.25M/namd36025
+PCT_AA1-36_0.50M,WT,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,125,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PCT_AA1-36_0.50M/namd3605
+PCT_AA1-36_1.00M,WT,ProP,Ec,465-500,KCl,1,anti-parallel coiled-coil,125,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PCT_AA1-36_1.00M/namd361M
+PCT_AA4-33_0.25M,WT,ProP,Ec,468-497,KCl,0.25,"anti-parallel coiled-coil, based directly on NMR structure",50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PCT_AA4-33_0.25M/namd433025
+PCT_AA4-33_0.50M,WT,ProP,Ec,468-497,KCl,0.5,"anti-parallel coiled-coil, based directly on NMR structure",30,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PCT_AA4-33_0.50M/namd43305
+PCT_AA4-33_1.00M,WT,ProP,Ec,468-497,KCl,1,"anti-parallel coiled-coil, based directly on MNR structure",30,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PCT_AA4-33_1.00M/namd4331M
+PHO1_AA1-36_0.25M,WT,ProP,Ec,465-500,KH2PO4,0.25,anti-parallel coiled-coil,125,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PHO1_AA1-36_0.25M/np36025
+PHO1_AA1-36_0.50M,WT,ProP,Ec,465-500,KH2PO4,0.5,anti-parallel coiled-coil,125,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PHO1_AA1-36_0.50M/np3605
+PHO1_AA1-36_1.00M,WT,ProP,Ec,465-500,KH2PO4,1,anti-parallel coiled-coil,125,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PHO1_AA1-36_1.00M/np361M
+PHO1_AA4-33_0.25M,WT,ProP,Ec,468-497,KH2PO4,0.25,anti-parallel coiled-coil,50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PHO1_AA4-33_0.25M/np33025
+PHO1_AA4-33_0.50M,WT,ProP,Ec,468-497,KH2PO4,0.5,anti-parallel coiled-coil,50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PHO1_AA4-33_0.50M/np3305
+PHO1_AA4-33_1.00M,WT,ProP,Ec,468-497,KH2PO4,1,anti-parallel coiled-coil,50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PHO1_AA4-33_1.00M/np331M
+PHO1_AA439-500_single_0.50M,WT,ProP,Ec,439-500,KH2PO4,0.5,single helix,100,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/PHO1_AA439-500_single_0.50M/npho439-05
+R488I-0.25M,Mu_R488I,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/R488I-0.25M/namd025V
+R488I-0.50M,Mu_R488I,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/R488I-0.50M/namdR05
+R488I-1.00M,Mu_R488I,ProP,Ec,465-500,KCl,1,anti-parallel coiled-coil,50,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/R488I-1.00M/namd1MV
+Xc-446-496-0.50M,WT,ProP,Xc,446-496,KCl,0.5,"single peptide, full c-terminus",100,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/Xc-446-496-0.50M/nXc-05
+Y467I-0.25M,Mu_Y467I,ProP,Ec,465-500,KCl,0.25,anti-parallel coiled-coil,112,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/Y467I-0.25M/namdY025
+Y467I-0.50M,Mu_Y467I,ProP,Ec,465-500,KCl,0.5,anti-parallel coiled-coil,113,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/Y467I-0.50M/namdY05
+Y467I-1.00M,Mu_Y467I,ProP,Ec,465-500,KCl,1,anti-parallel coiled-coil,117,SimData (external HDD),/media/jwood/SimData/Jen/ProP_Cter_Simulations/Y467I-1.00M/namdY1M
